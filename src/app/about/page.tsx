@@ -23,17 +23,29 @@ export default function AboutPage() {
           land on the Institute of Molecular Genetics record and flag what&apos;s folklore
           vs what&apos;s documented.
         </p>
-        <p>
-          <strong>What we are:</strong> An informational hub and a reading-room style
-          discussion space.
-        </p>
-        <p>
-          <strong>What we aren&apos;t:</strong> A store, a clinic, or a dosing guide.
-        </p>
-        <p>
-          No carts. No &quot;buy Semax.&quot; No medical advice. If a claim needs a citation and
-          we don&apos;t have one yet, we say so.
-        </p>
+      </div>
+
+      <div className="mt-10 grid gap-4 sm:grid-cols-2">
+        <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-sm">
+          <h2 className="font-serif text-xl font-semibold text-ink">What we are</h2>
+          <p className="mt-3 leading-relaxed text-ink/85">
+            An informational hub and a reading-room style discussion space.
+          </p>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-sm">
+          <h2 className="font-serif text-xl font-semibold text-ink">What we aren&apos;t</h2>
+          <p className="mt-3 leading-relaxed text-ink/85">
+            A store, a clinic, or a dosing guide.
+          </p>
+        </div>
+      </div>
+
+      <p className="mt-6 text-lg leading-relaxed text-ink/85">
+        No carts. No &quot;buy Semax.&quot; No medical advice. If a claim needs a citation and
+        we don&apos;t have one yet, we say so.
+      </p>
+
+      <div className="mt-8 rounded-2xl border border-teal-800/15 bg-teal-50/60 p-5 sm:p-6">
         <p className="font-medium text-teal-900">
           Promise: Curious, sourced, never a shop.
         </p>
