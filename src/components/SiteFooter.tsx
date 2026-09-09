@@ -7,8 +7,7 @@ export function SiteFooter() {
         <div className="max-w-md">
           <p className="font-serif text-lg font-semibold text-ink">Semax Hub</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            Informational only. Not medical advice. We do not sell Semax.
-            Curious, sourced, never a shop.
+            Informational only. Not medical advice. We don&apos;t sell Semax.
           </p>
         </div>
         <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">

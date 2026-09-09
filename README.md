@@ -1,6 +1,6 @@
 # Semax Hub
 
-Free educational resource on Semax: history, mechanisms people discuss, evidence map, safety context, and common confusions. **Informational only. Not medical advice. We do not sell Semax.**
+Free educational resource on Semax: history, mechanisms people discuss, evidence map, safety context, and common confusions. **Informational only. Not medical advice. We don't sell Semax.**
 
 Brand promise: *Curious, sourced, never a shop.*
 

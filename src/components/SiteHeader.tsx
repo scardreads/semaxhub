@@ -9,9 +9,6 @@ export function SiteHeader() {
           <span className="font-serif text-xl font-semibold tracking-tight text-ink">
             Semax Hub
           </span>
-          <span className="hidden text-xs uppercase tracking-[0.14em] text-muted sm:inline">
-            Educational
-          </span>
         </Link>
         <nav className="hidden lg:flex items-center gap-1 text-sm">
           {primaryNav.slice(0, 6).map((item) => (
