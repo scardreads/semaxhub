@@ -3,7 +3,7 @@ export type NavItem = { href: string; label: string; group?: string };
 export const primaryNav: NavItem[] = [
   { href: "/what-is-semax", label: "What is Semax?" },
   { href: "/origin", label: "Origin" },
-  { href: "/how-it-may-work", label: "How it may work" },
+  { href: "/how-it-works", label: "How Semax works" },
   { href: "/evidence", label: "Evidence" },
   { href: "/safety-faqs", label: "Safety & FAQs" },
   { href: "/semax-vs-selank", label: "Semax vs Selank" },
@@ -25,8 +25,8 @@ export const teachPages = [
     blurb: "From the KGB peptide hook to the Institute of Molecular Genetics record.",
   },
   {
-    href: "/how-it-may-work",
-    title: "How it may work",
+    href: "/how-it-works",
+    title: "How Semax works",
     blurb: "Brain-derived neurotrophic factor (BDNF) / its receptor TrkB signals in animals, and the open questions that remain.",
   },
   {

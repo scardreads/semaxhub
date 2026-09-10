@@ -3,7 +3,7 @@ import { PageShell } from "@/components/PageShell";
 import Content from "./content.mdx";
 
 export const metadata: Metadata = {
-  title: 'How it may work',
+  title: 'How Semax works',
   description: 'Brain-derived neurotrophic factor (BDNF) / TrkB signals and open questions.',
 };
 
