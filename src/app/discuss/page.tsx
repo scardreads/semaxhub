@@ -5,7 +5,7 @@ import { threads } from "@/lib/discuss";
 
 export const metadata: Metadata = {
   title: "Discuss",
-  description: "Reading-room discussion shell for Semax Hub.",
+  description: "A quiet reading-room space for sourced questions about Semax.",
 };
 
 export default function DiscussIndexPage() {
@@ -13,7 +13,7 @@ export default function DiscussIndexPage() {
     <PageShell
       eyebrow="Reading room"
       title="Discuss"
-      lede="A quiet discussion shell for sourced questions. No sales pitches. UI stub for v0."
+      lede="A quiet reading-room space for sourced questions about Semax. No sales pitches."
     >
       <div className="space-y-3">
         {threads.map((thread) => (

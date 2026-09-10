@@ -31,14 +31,12 @@ export default async function DiscussThreadPage({
     <PageShell eyebrow="Reading room" title={thread.title} lede={thread.summary}>
       <div className="rounded-2xl border border-dashed border-stone-300 bg-card/70 p-6">
         <p className="text-sm leading-relaxed text-ink/80">
-          Discussion shell (v0 stub). Future replies can live here as a reading-room
-          archive. Keep claims sourced, label folklore clearly, and never turn the
-          thread into a shop.
+          Replies will show up here. Keep it curious, sourced, and kind.
         </p>
         <div className="mt-6 space-y-4">
           <div className="rounded-xl bg-stone-50 p-4">
             <p className="text-xs font-semibold uppercase tracking-wide text-muted">
-              Seed note
+              Where to start
             </p>
             <p className="mt-2 text-sm leading-relaxed text-ink/80">
               Start from the teach pages, especially{" "}
