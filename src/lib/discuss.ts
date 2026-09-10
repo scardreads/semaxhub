@@ -10,14 +10,14 @@ export const threads: Thread[] = [
     slug: "kgb-peptide-folklore",
     title: "Where does the KGB peptide story come from?",
     summary:
-      "A reading-room thread for separating discovery hooks from documented IMG history.",
+      "A reading-room thread for separating discovery hooks from documented Institute of Molecular Genetics history.",
     status: "seeded",
   },
   {
     slug: "bdnf-trkb-open-questions",
-    title: "BDNF/TrkB: what is established vs open?",
+    title: "Brain growth-factor pathway (BDNF/TrkB): what is established vs open?",
     summary:
-      "Collect notes on animal findings, human gaps, and careful wording for mechanism claims.",
+      "Collect notes on animal findings for the BDNF/TrkB (brain growth-factor pathway), human gaps, and careful wording for mechanism claims.",
     status: "seeded",
   },
   {

@@ -17,7 +17,7 @@ export const teachPages = [
   {
     href: "/what-is-semax",
     title: "What is Semax?",
-    blurb: "Heptapeptide MEHFPGP, ACTH(4-10) analog, nasal Rx in Russia.",
+    blurb: "Heptapeptide MEHFPGP (Semax's seven-letter amino-acid code), an adrenocorticotropic hormone (ACTH) fragment analog, nasal Rx in Russia.",
   },
   {
     href: "/origin",
@@ -27,7 +27,7 @@ export const teachPages = [
   {
     href: "/how-it-may-work",
     title: "How it may work",
-    blurb: "BDNF/TrkB signals in animals, and the open questions that remain.",
+    blurb: "Brain-derived neurotrophic factor (BDNF) / its receptor TrkB signals in animals, and the open questions that remain.",
   },
   {
     href: "/evidence",
@@ -47,7 +47,7 @@ export const teachPages = [
   {
     href: "/regulatory",
     title: "Regulatory status",
-    blurb: "Russia Vital & Essential Drugs lists; not FDA/EMA-approved.",
+    blurb: "Russia Vital & Essential Drugs lists; not U.S. Food and Drug Administration (FDA) / European Medicines Agency (EMA)-approved.",
   },
   {
     href: "/sources",

@@ -4,7 +4,7 @@ import Content from "./content.mdx";
 
 export const metadata: Metadata = {
   title: 'Regulatory status',
-  description: 'Russia listings; not FDA/EMA-approved.',
+  description: 'Russia listings; not FDA / European Medicines Agency (EMA)-approved.',
 };
 
 export default function Page() {

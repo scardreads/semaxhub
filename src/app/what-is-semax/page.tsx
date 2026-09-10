@@ -4,7 +4,7 @@ import Content from "./content.mdx";
 
 export const metadata: Metadata = {
   title: 'What is Semax?',
-  description: 'Heptapeptide MEHFPGP, ACTH(4-10) analog, nasal Rx in Russia.',
+  description: 'Heptapeptide MEHFPGP, adrenocorticotropic hormone (ACTH) fragment analog, nasal Rx in Russia.',
 };
 
 export default function Page() {

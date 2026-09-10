@@ -4,7 +4,7 @@ import Content from "./content.mdx";
 
 export const metadata: Metadata = {
   title: 'How it may work',
-  description: 'BDNF/TrkB signals and open questions.',
+  description: 'Brain-derived neurotrophic factor (BDNF) / TrkB signals and open questions.',
 };
 
 export default function Page() {

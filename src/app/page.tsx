@@ -48,16 +48,17 @@ export default function HomePage() {
             <p className="mt-4 leading-relaxed text-ink/80">
               The publicly documented story points to Russia&apos;s Institute of Molecular
               Genetics in the early 1980s. Work associated with N.F. Myasoedov,
-              I.P. Ashmarin, and colleagues turned an ACTH fragment into the
-              stabilized heptapeptide <span className="font-mono text-sm">MEHFPGP</span>
-              {" "}(Semax). That laboratory and peptide-design record is what we treat as
-              established.
+              I.P. Ashmarin, and colleagues turned an adrenocorticotropic hormone (ACTH)
+              fragment into the stabilized heptapeptide{" "}
+              <span className="font-mono text-sm">MEHFPGP</span>
+              {" "}(Semax&apos;s seven-letter amino-acid code). That laboratory and
+              peptide-design record is what we treat as established.
             </p>
             <p className="mt-4 leading-relaxed text-ink/80">
               Online lore sometimes claims a dramatic KGB operations origin. That
               folklore is memorable as a discovery hook. It is <strong>not</strong>{" "}
               established as historical fact on this site. We label folklore as
-              folklore, then land on the IMG record.
+              folklore, then land on what Institute of Molecular Genetics researchers documented.
             </p>
             <Link
               href="/origin"
