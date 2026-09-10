@@ -11,13 +11,12 @@ export default function HomePage() {
             The so-called &quot;KGB peptide,&quot; explained
           </p>
           <h1 className="mt-4 max-w-3xl font-serif text-4xl font-semibold tracking-tight text-ink sm:text-5xl lg:text-6xl">
-            Semax, without the hype
+            Semax, the definitive resource
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink/80 sm:text-xl">
-            Semax Hub is a free educational resource on the peptide people call the
+            Semax Hub is a free resource on the peptide known as the
             &quot;KGB brain spray&quot;: what it is, where the story actually comes from,
-            and what the research does (and doesn&apos;t) say. Curious. Sourced. Never a
-            shop.
+            and what the research does (and doesn&apos;t) say.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link
@@ -80,7 +79,7 @@ export default function HomePage() {
               <li>No carts. No &quot;buy Semax.&quot; No medical advice.</li>
             </ul>
             <p className="mt-6 text-sm font-medium text-teal-900">
-              Promise: Curious, sourced, never a shop.
+              Promise: Curious. Sourced. Never a shop.
             </p>
           </div>
         </div>

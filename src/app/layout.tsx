@@ -21,11 +21,11 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Semax Hub | Semax, without the hype",
+    default: "Semax Hub | Semax, the definitive resource",
     template: "%s | Semax Hub",
   },
   description:
-    "A free educational resource on the peptide people call the KGB brain spray: what it is, where the story comes from, and what the research does (and doesn't) say.",
+    "A free resource on the peptide known as the \"KGB brain spray\": what it is, where the story actually comes from, and what the research does (and doesn't) say.",
 };
 
 export default function RootLayout({
