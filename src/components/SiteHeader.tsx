@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { primaryNav } from "@/lib/nav";
+import { HeaderAuth } from "@/components/HeaderAuth";
 
 export function SiteHeader() {
   return (
@@ -32,23 +33,29 @@ export function SiteHeader() {
           >
             About
           </Link>
-        </nav>
-        <details className="relative lg:hidden">
-          <summary className="cursor-pointer list-none rounded-full border border-border bg-card px-3 py-1.5 text-sm text-ink">
-            Menu
-          </summary>
-          <div className="absolute right-0 mt-2 w-56 rounded-2xl border border-border bg-card p-2 shadow-lg">
-            {primaryNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block rounded-xl px-3 py-2 text-sm text-ink/80 hover:bg-stone-100"
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="ml-2 flex items-center">
+            <HeaderAuth />
           </div>
-        </details>
+        </nav>
+        <div className="flex items-center gap-2 lg:hidden">
+          <HeaderAuth />
+          <details className="relative">
+            <summary className="cursor-pointer list-none rounded-full border border-border bg-card px-3 py-1.5 text-sm text-ink">
+              Menu
+            </summary>
+            <div className="absolute right-0 mt-2 w-56 rounded-2xl border border-border bg-card p-2 shadow-lg">
+              {primaryNav.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="block rounded-xl px-3 py-2 text-sm text-ink/80 hover:bg-stone-100"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </details>
+        </div>
       </div>
     </header>
   );

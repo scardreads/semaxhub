@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google";
+import { AppClerkProvider } from "@/components/ClerkProvider";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import "./globals.css";
@@ -36,9 +37,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${sans.variable} ${serif.variable} ${mono.variable} antialiased`}>
-        <SiteHeader />
-        <main className="min-h-[70vh]">{children}</main>
-        <SiteFooter />
+        <AppClerkProvider>
+          <SiteHeader />
+          <main className="min-h-[70vh]">{children}</main>
+          <SiteFooter />
+        </AppClerkProvider>
       </body>
     </html>
   );
