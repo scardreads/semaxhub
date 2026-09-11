@@ -1,6 +1,6 @@
-import { SignIn } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ClerkSignIn } from "@/components/ClerkSignIn";
 
 export const metadata: Metadata = { title: "Sign in" };
 export const dynamic = "force-dynamic";
@@ -25,7 +25,7 @@ export default function SignInPage() {
 
   return (
     <div className="mx-auto flex max-w-md justify-center px-4 py-16">
-      <SignIn />
+      <ClerkSignIn />
     </div>
   );
 }

@@ -1,6 +1,6 @@
-import { SignUp } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ClerkSignUp } from "@/components/ClerkSignUp";
 
 export const metadata: Metadata = { title: "Sign up" };
 export const dynamic = "force-dynamic";
@@ -25,7 +25,7 @@ export default function SignUpPage() {
 
   return (
     <div className="mx-auto flex max-w-md justify-center px-4 py-16">
-      <SignUp />
+      <ClerkSignUp />
     </div>
   );
 }
