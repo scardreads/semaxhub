@@ -3,16 +3,20 @@ import { readFileSync, readdirSync } from "fs";
 import { join } from "path";
 import postgres from "postgres";
 
+function isPrismaUrl(url: string): boolean {
+  const lower = url.toLowerCase();
+  return lower.startsWith("prisma+") || lower.includes("prisma");
+}
+
 function getDatabaseUrl(): string | undefined {
   const candidates = [
     process.env.DATABASE_URL,
     process.env.POSTGRES_URL,
-    process.env.POSTGRES_PRISMA_URL,
     process.env.POSTGRES_URL_NON_POOLING,
   ];
   for (const value of candidates) {
     const trimmed = value?.trim();
-    if (trimmed) return trimmed;
+    if (trimmed && !isPrismaUrl(trimmed)) return trimmed;
   }
   return undefined;
 }

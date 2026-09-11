@@ -13,7 +13,8 @@ Set these on Vercel (**Production + Preview**) and locally in `.env.local`:
 
 ```bash
 DATABASE_URL=                      # Postgres (Neon or Vercel Postgres recommended)
-                                   # Also accepted: POSTGRES_URL, POSTGRES_PRISMA_URL, POSTGRES_URL_NON_POOLING
+                                   # Also accepted: POSTGRES_URL, POSTGRES_URL_NON_POOLING
+                                   # Do not use POSTGRES_PRISMA_URL / prisma+ URLs with postgres.js
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
 NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
