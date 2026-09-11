@@ -1,9 +1,20 @@
 "use client";
 
-import { SignUp } from "@clerk/nextjs";
+import { ClerkFailed, ClerkLoading, SignUp } from "@clerk/nextjs";
 
 export function ClerkSignUp() {
   return (
-    <SignUp routing="path" path="/sign-up" signInUrl="/sign-in" />
+    <div className="min-h-[480px] w-full">
+      <ClerkLoading>
+        <p className="text-center text-sm text-muted">Loading sign up…</p>
+      </ClerkLoading>
+      <ClerkFailed>
+        <p className="text-center text-sm text-muted">
+          Could not load sign up. Refresh, or check that Clerk Production allows
+          this domain.
+        </p>
+      </ClerkFailed>
+      <SignUp signInUrl="/sign-in" />
+    </div>
   );
 }

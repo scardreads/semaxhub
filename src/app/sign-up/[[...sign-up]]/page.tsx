@@ -24,7 +24,7 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="mx-auto flex max-w-md justify-center px-4 py-16">
+    <div className="mx-auto w-full min-h-[480px] max-w-md px-4 py-16">
       <ClerkSignUp />
     </div>
   );
