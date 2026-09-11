@@ -10,8 +10,8 @@ export function ClerkSignUp() {
       </ClerkLoading>
       <ClerkFailed>
         <p className="text-center text-sm text-muted">
-          Could not load sign up. Refresh, or check that Clerk Production allows
-          this domain.
+          Could not load sign up. Refresh, then confirm Clerk Dashboard →
+          Domains → Frontend API proxy is https://semaxhub-brown.vercel.app/__clerk.
         </p>
       </ClerkFailed>
       <SignUp signInUrl="/sign-in" />

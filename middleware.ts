@@ -1,4 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { clerkProxyUrl } from "@/lib/clerk-proxy";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -17,7 +18,7 @@ const middleware = clerkConfigured
           await auth.protect();
         }
       },
-      { frontendApiProxy: { enabled: true } },
+      { frontendApiProxy: { enabled: true }, proxyUrl: clerkProxyUrl() },
     )
   : function passthrough(_req: NextRequest) {
       return NextResponse.next();

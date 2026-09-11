@@ -3,7 +3,13 @@
 import { ClerkProvider as ClerkRoot } from "@clerk/nextjs";
 import type { ReactNode } from "react";
 
-export function AppClerkProvider({ children }: { children: ReactNode }) {
+export function AppClerkProvider({
+  children,
+  proxyUrl,
+}: {
+  children: ReactNode;
+  proxyUrl?: string;
+}) {
   const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
   if (!key) {
     return <>{children}</>;
@@ -11,6 +17,7 @@ export function AppClerkProvider({ children }: { children: ReactNode }) {
   return (
     <ClerkRoot
       publishableKey={key}
+      proxyUrl={proxyUrl ?? "/__clerk"}
       signInUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL ?? "/sign-in"}
       signUpUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL ?? "/sign-up"}
       signInFallbackRedirectUrl={
