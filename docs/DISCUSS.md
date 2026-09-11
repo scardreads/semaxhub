@@ -21,14 +21,16 @@ NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
 NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/discuss
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/discuss
-NEXT_PUBLIC_CLERK_PROXY_URL=https://semaxhub-brown.vercel.app/__clerk
+NEXT_PUBLIC_CLERK_PROXY_URL=/__clerk
 ADMIN_USER_IDS=                    # optional comma-separated Clerk user IDs
 ```
 
-`NEXT_PUBLIC_CLERK_PROXY_URL` is optional on Vercel Production (the app builds
-`https://semaxhub-brown.vercel.app/__clerk` from `VERCEL_PROJECT_PRODUCTION_URL`).
-Pin it anyway so the client and middleware agree. Without an absolute proxy URL,
-ClerkJS talks to `clerk.semaxhub-brown.vercel.app` (TLS handshake EOF).
+Client `NEXT_PUBLIC_CLERK_PROXY_URL` must be the **relative** path `/__clerk`.
+An absolute `https://semaxhub-brown.vercel.app/__clerk` makes Clerk load
+`https://clerk.semaxhub-brown.vercel.app/npm/@clerk/clerk-js@5/...` (TLS closed,
+`failed_to_load_clerk_ui`). next.config pins `NEXT_PUBLIC_CLERK_JS_URL` and
+`NEXT_PUBLIC_CLERK_UI_URL` to `/__clerk/npm/@clerk/...`. The Dashboard proxy
+URL stays absolute (`https://semaxhub-brown.vercel.app/__clerk`).
 
 After setting `DATABASE_URL` (or a `POSTGRES_*` alias) on Vercel Production + Preview, **redeploy**. Migrate/seed already ran against prod Postgres.
 
