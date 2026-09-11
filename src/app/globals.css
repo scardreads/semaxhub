@@ -34,3 +34,21 @@ body {
 ::selection {
   background: color-mix(in oklab, var(--accent) 25%, white);
 }
+
+details.learn-nav > summary {
+  list-style: none;
+}
+details.learn-nav > summary::-webkit-details-marker {
+  display: none;
+}
+details.learn-nav > .learn-panel {
+  display: none;
+}
+details.learn-nav[open] > .learn-panel {
+  display: block;
+}
+@media (hover: hover) and (pointer: fine) {
+  details.learn-nav:hover > .learn-panel {
+    display: block;
+  }
+}

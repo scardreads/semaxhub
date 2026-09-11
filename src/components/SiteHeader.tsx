@@ -1,50 +1,26 @@
 import Link from "next/link";
-import { primaryNav } from "@/lib/nav";
+import { learnNav } from "@/lib/nav";
 import { HeaderAuth } from "@/components/HeaderAuth";
+
+const linkClass =
+  "rounded-full px-2.5 py-1.5 text-sm text-ink/75 transition hover:bg-stone-200/60 hover:text-ink";
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/80 bg-background/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <Link href="/" className="group flex items-baseline gap-2">
           <span className="font-serif text-xl font-semibold tracking-tight text-ink">
             Semax Hub
           </span>
         </Link>
-        <nav className="hidden lg:flex items-center gap-1 text-sm">
-          {primaryNav.slice(0, 6).map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded-full px-2.5 py-1.5 text-ink/75 transition hover:bg-stone-200/60 hover:text-ink"
-            >
-              {item.label}
-            </Link>
-          ))}
-          <Link
-            href="/discuss"
-            className="rounded-full px-2.5 py-1.5 text-ink/75 transition hover:bg-stone-200/60 hover:text-ink"
-          >
-            Discuss
-          </Link>
-          <Link
-            href="/about"
-            className="rounded-full px-2.5 py-1.5 text-ink/75 transition hover:bg-stone-200/60 hover:text-ink"
-          >
-            About
-          </Link>
-          <div className="ml-2 flex items-center">
-            <HeaderAuth />
-          </div>
-        </nav>
-        <div className="flex items-center gap-2 lg:hidden">
-          <HeaderAuth />
-          <details className="relative">
-            <summary className="cursor-pointer list-none rounded-full border border-border bg-card px-3 py-1.5 text-sm text-ink">
-              Menu
+        <nav className="flex items-center gap-1">
+          <details className="learn-nav relative">
+            <summary className={`${linkClass} cursor-pointer`}>
+              Learn
             </summary>
-            <div className="absolute right-0 mt-2 w-56 rounded-2xl border border-border bg-card p-2 shadow-lg">
-              {primaryNav.map((item) => (
+            <div className="learn-panel absolute left-0 top-full z-50 mt-1 min-w-52 rounded-2xl border border-border bg-card p-2 shadow-lg max-lg:right-0 max-lg:left-auto">
+              {learnNav.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -55,7 +31,13 @@ export function SiteHeader() {
               ))}
             </div>
           </details>
-        </div>
+          <Link href="/discuss" className={linkClass}>
+            Discuss
+          </Link>
+          <div className="ml-1 flex items-center">
+            <HeaderAuth />
+          </div>
+        </nav>
       </div>
     </header>
   );

@@ -11,17 +11,17 @@ export function SiteFooter() {
           </p>
         </div>
         <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-          <Link href="/sources" className="text-ink/70 hover:text-ink">
-            Sources
-          </Link>
           <Link href="/about" className="text-ink/70 hover:text-ink">
             About
           </Link>
+          <Link href="/sources" className="text-ink/70 hover:text-ink">
+            Sources
+          </Link>
+          <Link href="/semax-vs-selank" className="text-ink/70 hover:text-ink">
+            Semax vs Selank
+          </Link>
           <Link href="/discuss" className="text-ink/70 hover:text-ink">
             Discuss
-          </Link>
-          <Link href="/regulatory" className="text-ink/70 hover:text-ink">
-            Regulatory
           </Link>
         </div>
       </div>

@@ -13,6 +13,15 @@ export const primaryNav: NavItem[] = [
   { href: "/about", label: "About" },
 ];
 
+export const learnNav: NavItem[] = [
+  { href: "/what-is-semax", label: "What Semax is" },
+  { href: "/origin", label: "Origin story" },
+  { href: "/how-it-works", label: "How it works" },
+  { href: "/evidence", label: "Evidence" },
+  { href: "/safety-faqs", label: "Safety & FAQs" },
+  { href: "/regulatory", label: "Regulatory status" },
+];
+
 export const teachPages = [
   {
     href: "/what-is-semax",
