@@ -86,7 +86,7 @@ const SEED_TOPICS = [
 
 async function main() {
   if (!isDatabaseConfigured()) {
-    console.error("DATABASE_URL is required to seed.");
+    console.error("DATABASE_URL (or POSTGRES_URL) is required to seed.");
     process.exit(1);
   }
   const db = getDb();

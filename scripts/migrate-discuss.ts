@@ -3,10 +3,24 @@ import { readFileSync, readdirSync } from "fs";
 import { join } from "path";
 import postgres from "postgres";
 
+function getDatabaseUrl(): string | undefined {
+  const candidates = [
+    process.env.DATABASE_URL,
+    process.env.POSTGRES_URL,
+    process.env.POSTGRES_PRISMA_URL,
+    process.env.POSTGRES_URL_NON_POOLING,
+  ];
+  for (const value of candidates) {
+    const trimmed = value?.trim();
+    if (trimmed) return trimmed;
+  }
+  return undefined;
+}
+
 async function main() {
-  const url = process.env.DATABASE_URL?.trim();
+  const url = getDatabaseUrl();
   if (!url) {
-    console.error("DATABASE_URL is required");
+    console.error("DATABASE_URL (or POSTGRES_URL) is required");
     process.exit(1);
   }
   const sql = postgres(url, { max: 1 });

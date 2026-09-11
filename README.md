@@ -4,6 +4,11 @@ Free educational resource on Semax: history, mechanisms people discuss, evidence
 
 Brand promise: *Curious, sourced, never a shop.*
 
+## Production
+
+- https://semaxhub-brown.vercel.app
+- Older alias: https://semaxhub-ilya-nikolayevs-projects.vercel.app
+
 ## Stack
 
 - Next.js App Router
@@ -17,7 +22,7 @@ Brand promise: *Curious, sourced, never a shop.*
 
 ```bash
 npm install
-cp .env.example .env.local   # then fill Clerk + DATABASE_URL
+cp .env.example .env.local   # then fill Clerk + DATABASE_URL (or POSTGRES_URL)
 npm run db:migrate
 npm run db:seed
 npm run dev
@@ -32,11 +37,13 @@ npm run build
 npm start
 ```
 
-Discuss routes degrade if `DATABASE_URL` is missing (banner, no crash). Teach pages always build.
+Discuss routes degrade if `DATABASE_URL` / `POSTGRES_URL` is missing (banner, no crash). Teach pages always build.
 
 ## Discuss
 
 See [docs/DISCUSS.md](docs/DISCUSS.md) for the full env checklist (Clerk + Postgres), seed, and moderation notes.
+
+Set `DATABASE_URL` (or Neon/Vercel `POSTGRES_*` aliases) on Vercel Production + Preview, then redeploy. Migrate/seed already ran against prod Postgres.
 
 ## Notes
 

@@ -2,12 +2,18 @@
 
 Reading-room discussion. Anyone can read; sign-in required to post or reply. No anonymous posts. No third-party forum.
 
+## Production host
+
+- Primary: https://semaxhub-brown.vercel.app
+- Older alias (still valid if present): https://semaxhub-ilya-nikolayevs-projects.vercel.app
+
 ## Env checklist (Ilya / Vercel)
 
-Set these on Vercel (Production + Preview) and locally in `.env.local`:
+Set these on Vercel (**Production + Preview**) and locally in `.env.local`:
 
 ```bash
 DATABASE_URL=                      # Postgres (Neon or Vercel Postgres recommended)
+                                   # Also accepted: POSTGRES_URL, POSTGRES_PRISMA_URL, POSTGRES_URL_NON_POOLING
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
 NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
@@ -16,6 +22,8 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/discuss
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/discuss
 ADMIN_USER_IDS=                    # optional comma-separated Clerk user IDs
 ```
+
+After setting `DATABASE_URL` (or a `POSTGRES_*` alias) on Vercel Production + Preview, **redeploy**. Migrate/seed already ran against prod Postgres.
 
 ### Clerk dashboard
 
@@ -30,11 +38,11 @@ npm run db:migrate    # apply drizzle/ SQL migrations
 npm run db:seed       # upsert the 8 Research topics
 ```
 
-On first deploy: set `DATABASE_URL`, run migrate + seed (locally against prod URL, or via a one-off job).
+On first deploy: set `DATABASE_URL` (or `POSTGRES_URL`), run migrate + seed (locally against prod URL, or via a one-off job).
 
 ### Graceful degrade
 
-If `DATABASE_URL` is missing, `/discuss` shows a banner ("Discussion DB not configured") and does not crash the build. Teach pages always build. Discuss routes use `dynamic = force-dynamic`.
+If `DATABASE_URL` / `POSTGRES_URL` is missing, `/discuss` shows a banner ("Discussion DB not configured") and does not crash the build. Teach pages always build. Discuss routes use `dynamic = force-dynamic`.
 
 ## Routes
 

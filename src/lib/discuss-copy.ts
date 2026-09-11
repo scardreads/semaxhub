@@ -27,4 +27,4 @@ export const REPORT_HELPER =
   "Report · Use this for spam, harassment, or buy links.";
 
 export const DB_NOT_CONFIGURED =
-  "Discussion DB not configured. Set DATABASE_URL and run migrations to enable posting.";
+  "Discussion DB not configured. Set DATABASE_URL (or POSTGRES_URL) and run migrations to enable posting.";
