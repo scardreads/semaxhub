@@ -44,24 +44,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="home-section">
-        <div className="home-card home-card-solo">
-          <h2 className="home-h2">What this site is</h2>
-          <ul className="home-list">
-            <li>An informational hub with sourced teach pages.</li>
-            <li>A reading-room style discussion space.</li>
-            <li>Clear about gaps: if we lack a citation, we say so.</li>
-          </ul>
-          <h3 className="home-h3">What it isn&apos;t</h3>
-          <ul className="home-list">
-            <li>Not a store, clinic, or dosing guide.</li>
-            <li>No carts. No &quot;buy Semax.&quot; No medical advice.</li>
-          </ul>
-          <p className="home-promise">
-            Promise: Curious. Sourced. Never a shop.
-          </p>
-        </div>
-      </section>
 
       <section className="home-section">
         <div className="home-section-head">
@@ -86,7 +68,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="home-section home-section-last">
+      <section className="home-section">
         <div className="home-section-head">
           <div>
             <h2 className="home-h2">Discuss</h2>
@@ -153,6 +135,25 @@ export default async function HomePage() {
             ) : null}
           </>
         )}
+      </section>
+
+      <section className="home-section home-section-last">
+        <div className="home-card home-card-solo">
+          <h2 className="home-h2">What this site is</h2>
+          <ul className="home-list">
+            <li>An informational hub with sourced teach pages.</li>
+            <li>A reading-room style discussion space.</li>
+            <li>Clear about gaps: if we lack a citation, we say so.</li>
+          </ul>
+          <h3 className="home-h3">What it isn&apos;t</h3>
+          <ul className="home-list">
+            <li>Not a store, clinic, or dosing guide.</li>
+            <li>No carts. No &quot;buy Semax.&quot; No medical advice.</li>
+          </ul>
+          <p className="home-promise">
+            Promise: Curious. Sourced. Never a shop.
+          </p>
+        </div>
       </section>
     </div>
   );
