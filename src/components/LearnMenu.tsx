@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { learnNav } from "@/lib/nav";
 
 const triggerClass =
-  "rounded-full px-2.5 py-1.5 text-sm text-ink/75 transition hover:bg-accent-soft hover:text-ink";
+  "rounded-full px-3.5 py-2 text-base font-medium text-ink/80 transition hover:bg-accent-soft hover:text-ink";
 
 function fineHover(): boolean {
   return window.matchMedia("(hover: hover) and (pointer: fine)").matches;

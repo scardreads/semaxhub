@@ -3,7 +3,7 @@ import { HeaderAuth } from "@/components/HeaderAuth";
 import { LearnMenu } from "@/components/LearnMenu";
 
 const linkClass =
-  "rounded-full px-2.5 py-1.5 text-sm text-ink/75 transition hover:bg-accent-soft hover:text-ink";
+  "rounded-full px-3.5 py-2 text-base font-medium text-ink/80 transition hover:bg-accent-soft hover:text-ink";
 
 export function SiteHeader() {
   return (
