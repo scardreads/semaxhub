@@ -14,6 +14,8 @@ function formatDate(value: Date) {
 
 export default async function HomePage() {
   const highlights = await listHomeDiscussHighlights(6);
+  const recent = highlights.filter((thread) => thread.source === "recent");
+  const popular = highlights.filter((thread) => thread.source === "popular");
 
   return (
     <div className="home">
@@ -63,7 +65,13 @@ export default async function HomePage() {
 
       <section className="home-section">
         <div className="home-section-head">
-          <h2 className="home-h2">Learn</h2>
+          <div>
+            <h2 className="home-h2">Learn</h2>
+            <p className="home-section-lede">
+              Clear pages on what Semax is, where it came from, and what the
+              research says.
+            </p>
+          </div>
           <Link href="/sources" className="home-meta-link">
             Sources hub
           </Link>
@@ -80,41 +88,70 @@ export default async function HomePage() {
 
       <section className="home-section home-section-last">
         <div className="home-section-head">
-          <h2 className="home-h2">Discuss</h2>
+          <div>
+            <h2 className="home-h2">Discuss</h2>
+            <p className="home-section-lede">
+              Recent and popular threads from the reading room.
+            </p>
+          </div>
           <Link href="/discuss" className="home-meta-link">
-            See all discussions
+            Browse all topics
           </Link>
         </div>
         {highlights.length === 0 ? (
           <div className="home-card home-card-solo">
             <p className="home-body">
-              No discussions yet. The reading room is open — anyone can read,
-              and signed-in members can start a thread.
+              No threads yet. Be the first to ask something in Discuss.
             </p>
             <Link href="/discuss" className="home-inline-link">
-              Go to Discuss →
+              Browse all topics
             </Link>
           </div>
         ) : (
-          <div className="home-grid">
-            {highlights.map((thread) => (
-              <Link
-                key={thread.id}
-                href={`/discuss/${thread.topicSlug}/${thread.id}`}
-                className="home-read-card"
-              >
-                <p className="home-thread-kicker">
-                  {thread.source === "popular" ? "Popular" : "Recent"}
-                </p>
-                <h3 className="home-read-title">{thread.title}</h3>
-                <p className="home-read-blurb">
-                  {thread.authorDisplayName} · {formatDate(thread.createdAt)} ·{" "}
-                  {thread.replyCount}{" "}
-                  {thread.replyCount === 1 ? "reply" : "replies"}
-                </p>
-              </Link>
-            ))}
-          </div>
+          <>
+            {recent.length > 0 ? (
+              <div className="home-discuss-block">
+                <h3 className="home-discuss-subhead">Recent</h3>
+                <div className="home-grid">
+                  {recent.map((thread) => (
+                    <Link
+                      key={thread.id}
+                      href={`/discuss/${thread.topicSlug}/${thread.id}`}
+                      className="home-read-card"
+                    >
+                      <h3 className="home-read-title">{thread.title}</h3>
+                      <p className="home-read-blurb">
+                        {thread.authorDisplayName} · {formatDate(thread.createdAt)}{" "}
+                        · {thread.replyCount}{" "}
+                        {thread.replyCount === 1 ? "reply" : "replies"}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+            {popular.length > 0 ? (
+              <div className="home-discuss-block">
+                <h3 className="home-discuss-subhead">Popular</h3>
+                <div className="home-grid">
+                  {popular.map((thread) => (
+                    <Link
+                      key={thread.id}
+                      href={`/discuss/${thread.topicSlug}/${thread.id}`}
+                      className="home-read-card"
+                    >
+                      <h3 className="home-read-title">{thread.title}</h3>
+                      <p className="home-read-blurb">
+                        {thread.authorDisplayName} · {formatDate(thread.createdAt)}{" "}
+                        · {thread.replyCount}{" "}
+                        {thread.replyCount === 1 ? "reply" : "replies"}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </>
         )}
       </section>
     </div>

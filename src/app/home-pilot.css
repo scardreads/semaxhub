@@ -229,10 +229,30 @@
 
 .home-section-head {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 20px;
+}
+
+.home-section-lede {
+  margin: 8px 0 0;
+  max-width: 720px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #6e6e73;
+  text-align: left;
+}
+
+.home-discuss-block + .home-discuss-block {
+  margin-top: 28px;
+}
+
+.home-discuss-subhead {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1d1d1f;
 }
 
 .home-meta-link {
