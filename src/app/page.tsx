@@ -32,8 +32,8 @@ export default async function HomePage() {
             <Link href="/what-is-semax" className="home-cta home-cta-primary">
               Start with What is Semax?
             </Link>
-            <Link href="/origin" className="home-cta home-cta-ghost">
-              Read the origin story
+            <Link href="/discuss" className="home-cta home-cta-ghost">
+              Join the discussion
             </Link>
           </div>
           <p className="home-trust">
