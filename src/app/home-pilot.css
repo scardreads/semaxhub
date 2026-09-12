@@ -90,7 +90,10 @@ body:has(.home-pilot) footer a:hover {
 }
 
 .home-hero {
+  max-width: 1120px;
+  margin: 0 auto;
   padding: 80px 24px 64px;
+  text-align: center;
 }
 
 @media (min-width: 640px) {
@@ -101,6 +104,7 @@ body:has(.home-pilot) footer a:hover {
 
 .home-hero-inner {
   max-width: 720px;
+  margin: 0 auto;
 }
 
 .home-eyebrow {
@@ -139,6 +143,7 @@ body:has(.home-pilot) footer a:hover {
   .home-actions {
     flex-direction: row;
     align-items: center;
+    justify-content: center;
   }
 }
 
