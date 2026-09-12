@@ -43,12 +43,14 @@ export default async function ThreadPage({
 
   if (!dbReady) {
     return (
-      <div className="page-wrap space-y-4">
-        <DiscussBanner />
-        <DbMissingBanner />
-        <Link href="/discuss" className="text-sm text-accent hover:underline">
-          ← All topics
-        </Link>
+      <div className="page-shell discuss-shell">
+        <div className="page-measure space-y-4">
+          <DiscussBanner />
+          <DbMissingBanner />
+          <Link href="/discuss" className="text-sm text-accent hover:underline">
+            ← All topics
+          </Link>
+        </div>
       </div>
     );
   }
@@ -64,7 +66,8 @@ export default async function ThreadPage({
   });
 
   return (
-    <div className="page-wrap">
+    <div className="page-shell discuss-shell">
+      <div className="page-measure">
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
         {thread.topicTitle}
       </p>
@@ -171,6 +174,7 @@ export default async function ThreadPage({
           </Link>
         </p>
       </div>
+          </div>
     </div>
   );
 }

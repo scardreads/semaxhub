@@ -86,16 +86,63 @@ footer.site-footer a:hover {
   color: var(--ink);
 }
 
-.page-wrap {
-  max-width: 720px;
+/* 1120 section shell (same axis as home). Prose sits in .page-measure. */
+.page-shell {
+  max-width: 1120px;
   margin: 0 auto;
   padding: 56px 24px 80px;
+  text-align: left;
 }
 
 @media (min-width: 640px) {
-  .page-wrap {
+  .page-shell {
     padding: 72px 48px 96px;
   }
+}
+
+.page-shell.discuss-shell {
+  padding-top: 40px;
+  padding-bottom: 64px;
+}
+
+@media (min-width: 640px) {
+  .page-shell.discuss-shell {
+    padding-top: 48px;
+    padding-bottom: 80px;
+  }
+}
+
+.page-measure {
+  max-width: 720px;
+  width: 100%;
+  text-align: left;
+}
+
+.page-measure p,
+.page-measure li {
+  max-width: 72ch;
+}
+
+.discuss-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.disclosure {
+  background: #ffffff;
+  color: #1d1d1f;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.disclosure p,
+.disclosure .disclosure-meta {
+  color: #1d1d1f;
+  max-width: none;
 }
 
 .surface {

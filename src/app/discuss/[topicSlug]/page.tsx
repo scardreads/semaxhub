@@ -43,12 +43,14 @@ export default async function TopicPage({
 
   if (!dbReady) {
     return (
-      <div className="page-wrap space-y-4">
-        <DiscussBanner />
-        <DbMissingBanner />
-        <Link href="/discuss" className="text-sm text-accent hover:underline">
-          ← All topics
-        </Link>
+      <div className="page-shell discuss-shell">
+        <div className="page-measure space-y-4">
+          <DiscussBanner />
+          <DbMissingBanner />
+          <Link href="/discuss" className="text-sm text-accent hover:underline">
+            ← All topics
+          </Link>
+        </div>
       </div>
     );
   }
@@ -62,7 +64,8 @@ export default async function TopicPage({
   const threads = await listThreadsForTopic(topic.id, { includeHidden: admin });
 
   return (
-    <div className="page-wrap">
+    <div className="page-shell discuss-shell">
+      <div className="page-measure">
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
         Reading room
       </p>
@@ -93,7 +96,7 @@ export default async function TopicPage({
           <SignInCta />
         )}
 
-        <div className="space-y-3">
+        <div className="discuss-list">
           {threads.length === 0 ? (
             <div className="surface p-5 text-sm text-ink">
               {EMPTY_NO_THREADS}
@@ -102,7 +105,7 @@ export default async function TopicPage({
             threads.map((thread) => (
               <div
                 key={thread.id}
-                className="surface p-5"
+                className="surface px-4 py-3"
               >
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <Link
@@ -153,6 +156,7 @@ export default async function TopicPage({
           </Link>
         </p>
       </div>
+          </div>
     </div>
   );
 }

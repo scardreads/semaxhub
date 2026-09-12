@@ -26,7 +26,8 @@ export default async function DiscussIndexPage() {
   }
 
   return (
-    <div className="page-wrap">
+    <div className="page-shell discuss-shell">
+      <div className="page-measure">
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
         Reading room
       </p>
@@ -48,12 +49,12 @@ export default async function DiscussIndexPage() {
         ) : null}
 
         {dbReady && !loadError ? (
-          <div className="space-y-3">
+          <div className="discuss-list">
             {topics.map((topic) => (
               <Link
                 key={topic.id}
                 href={`/discuss/${topic.slug}`}
-                className="block surface p-5 transition hover:border-accent/40"
+                className="block surface px-4 py-3 transition hover:border-accent/40"
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <h2 className="text-xl font-semibold text-ink">
@@ -76,6 +77,7 @@ export default async function DiscussIndexPage() {
             ) : null}
           </div>
         ) : null}
+      </div>
       </div>
     </div>
   );
