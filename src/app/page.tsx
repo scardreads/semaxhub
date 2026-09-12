@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listHomeDiscussHighlights } from "@/lib/discuss";
+import { listHomeDiscussModules } from "@/lib/discuss";
 import { teachPages } from "@/lib/nav";
 
 export const dynamic = "force-dynamic";
@@ -13,9 +13,7 @@ function formatDate(value: Date) {
 }
 
 export default async function HomePage() {
-  const highlights = await listHomeDiscussHighlights(6);
-  const recent = highlights.filter((thread) => thread.source === "recent");
-  const popular = highlights.filter((thread) => thread.source === "popular");
+  const modules = await listHomeDiscussModules(4);
 
   return (
     <div className="home">
@@ -80,7 +78,7 @@ export default async function HomePage() {
             Browse all topics
           </Link>
         </div>
-        {highlights.length === 0 ? (
+        {modules.length === 0 ? (
           <div className="home-card home-card-solo">
             <p className="home-body">
               No threads yet. Be the first to ask something in Discuss.
@@ -90,50 +88,29 @@ export default async function HomePage() {
             </Link>
           </div>
         ) : (
-          <>
-            {recent.length > 0 ? (
-              <div className="home-discuss-block">
-                <h3 className="home-discuss-subhead">Recent</h3>
-                <div className="home-grid">
-                  {recent.map((thread) => (
-                    <Link
-                      key={thread.id}
-                      href={`/discuss/${thread.topicSlug}/${thread.id}`}
-                      className="home-read-card"
-                    >
-                      <h3 className="home-read-title">{thread.title}</h3>
-                      <p className="home-read-blurb">
-                        {thread.authorDisplayName} · {formatDate(thread.createdAt)}{" "}
-                        · {thread.replyCount}{" "}
-                        {thread.replyCount === 1 ? "reply" : "replies"}
-                      </p>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-            {popular.length > 0 ? (
-              <div className="home-discuss-block">
-                <h3 className="home-discuss-subhead">Popular</h3>
-                <div className="home-grid">
-                  {popular.map((thread) => (
-                    <Link
-                      key={thread.id}
-                      href={`/discuss/${thread.topicSlug}/${thread.id}`}
-                      className="home-read-card"
-                    >
-                      <h3 className="home-read-title">{thread.title}</h3>
-                      <p className="home-read-blurb">
-                        {thread.authorDisplayName} · {formatDate(thread.createdAt)}{" "}
-                        · {thread.replyCount}{" "}
-                        {thread.replyCount === 1 ? "reply" : "replies"}
-                      </p>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-          </>
+          <div className="home-discuss-grid">
+            {modules.map((item) =>
+              item.kind === "thread" ? (
+                <Link key={item.id} href={item.href} className="home-read-card">
+                  <p className="home-thread-kicker">
+                    {item.source === "popular" ? "Popular" : "Recent"}
+                  </p>
+                  <h3 className="home-read-title">{item.title}</h3>
+                  <p className="home-read-blurb">
+                    {item.authorDisplayName} · {formatDate(item.createdAt)} ·{" "}
+                    {item.replyCount}{" "}
+                    {item.replyCount === 1 ? "reply" : "replies"}
+                  </p>
+                </Link>
+              ) : (
+                <Link key={item.id} href={item.href} className="home-read-card">
+                  <p className="home-thread-kicker">Topic</p>
+                  <h3 className="home-read-title">{item.title}</h3>
+                  <p className="home-read-blurb">{item.description}</p>
+                </Link>
+              ),
+            )}
+          </div>
         )}
       </section>
 

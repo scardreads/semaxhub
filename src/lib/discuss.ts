@@ -103,23 +103,32 @@ export async function listRepliesForThread(
     .orderBy(asc(schema.replies.createdAt));
 }
 
-export type HomeDiscussHighlight = {
-  id: string;
-  title: string;
-  authorDisplayName: string;
-  createdAt: Date;
-  topicSlug: string;
-  replyCount: number;
-  source: "recent" | "popular";
-};
+export type HomeDiscussModule =
+  | {
+      kind: "thread";
+      id: string;
+      title: string;
+      href: string;
+      authorDisplayName: string;
+      createdAt: Date;
+      replyCount: number;
+      source: "recent" | "popular";
+    }
+  | {
+      kind: "topic";
+      id: string;
+      title: string;
+      href: string;
+      description: string;
+    };
 
-export async function listHomeDiscussHighlights(
-  limit = 6,
-): Promise<HomeDiscussHighlight[]> {
+export async function listHomeDiscussModules(
+  limit = 4,
+): Promise<HomeDiscussModule[]> {
   if (!isDatabaseConfigured()) return [];
   try {
     const db = getDb();
-    const rows = await db
+    const threadRows = await db
       .select({
         id: schema.threads.id,
         title: schema.threads.title,
@@ -146,41 +155,66 @@ export async function listHomeDiscussHighlights(
         schema.topics.slug,
       );
 
-    const recent = [...rows].sort(
+    const recent = [...threadRows].sort(
       (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
     );
-    const popular = [...rows].sort((a, b) => {
-      const byReplies = Number(b.replyCount) - Number(a.replyCount);
-      if (byReplies !== 0) return byReplies;
-      return b.createdAt.getTime() - a.createdAt.getTime();
-    });
+    const popular = [...threadRows]
+      .filter((row) => Number(row.replyCount) > 0)
+      .sort((a, b) => {
+        const byReplies = Number(b.replyCount) - Number(a.replyCount);
+        if (byReplies !== 0) return byReplies;
+        return b.createdAt.getTime() - a.createdAt.getTime();
+      });
 
-    const picked: HomeDiscussHighlight[] = [];
-    const seen = new Set<string>();
-    const take = Math.max(1, Math.ceil(limit / 2));
+    const picked: HomeDiscussModule[] = [];
+    const seenThread = new Set<string>();
 
-    const push = (
-      row: (typeof rows)[number],
-      source: HomeDiscussHighlight["source"],
+    const pushThread = (
+      row: (typeof threadRows)[number],
+      source: "recent" | "popular",
     ) => {
-      if (seen.has(row.id) || picked.length >= limit) return;
-      seen.add(row.id);
+      if (seenThread.has(row.id) || picked.length >= limit) return;
+      seenThread.add(row.id);
       picked.push({
+        kind: "thread",
         id: row.id,
         title: row.title,
+        href: `/discuss/${row.topicSlug}/${row.id}`,
         authorDisplayName: row.authorDisplayName,
         createdAt: row.createdAt,
-        topicSlug: row.topicSlug,
         replyCount: Number(row.replyCount),
         source,
       });
     };
 
-    for (let i = 0; i < take; i++) {
-      if (recent[i]) push(recent[i], "recent");
-      if (popular[i]) push(popular[i], "popular");
+    for (const row of recent.slice(0, 2)) pushThread(row, "recent");
+    for (const row of popular) pushThread(row, "popular");
+
+    if (picked.length < limit) {
+      const topics = await db
+        .select({
+          id: schema.topics.id,
+          slug: schema.topics.slug,
+          title: schema.topics.title,
+          description: schema.topics.description,
+        })
+        .from(schema.topics)
+        .orderBy(asc(schema.topics.sortOrder));
+      const seenTopic = new Set<string>();
+      for (const topic of topics) {
+        if (seenTopic.has(topic.slug) || picked.length >= limit) break;
+        seenTopic.add(topic.slug);
+        picked.push({
+          kind: "topic",
+          id: topic.id,
+          title: topic.title,
+          href: `/discuss/${topic.slug}`,
+          description: topic.description,
+        });
+      }
     }
-    return picked;
+
+    return picked.slice(0, limit);
   } catch {
     return [];
   }

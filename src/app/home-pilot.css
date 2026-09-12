@@ -335,3 +335,15 @@
   text-transform: uppercase;
   color: #6e6e73;
 }
+
+.home-discuss-grid {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .home-discuss-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
