@@ -29,10 +29,7 @@ export default async function HomePage() {
             and what the research does (and doesn&apos;t) say.
           </p>
           <div className="home-actions">
-            <Link href="/what-is-semax" className="home-cta home-cta-primary">
-              Start with What is Semax?
-            </Link>
-            <Link href="/discuss" className="home-cta home-cta-ghost">
+            <Link href="/discuss" className="home-cta home-cta-primary">
               Join the discussion
             </Link>
           </div>
