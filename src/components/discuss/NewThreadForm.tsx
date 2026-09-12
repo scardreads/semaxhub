@@ -20,7 +20,7 @@ export function NewThreadForm({
 
   return (
     <form
-      className="space-y-3 rounded-2xl border border-border bg-card p-5"
+      className="surface space-y-3 p-5"
       onSubmit={(e) => {
         e.preventDefault();
         const form = e.currentTarget;
@@ -49,7 +49,7 @@ export function NewThreadForm({
         required
         maxLength={200}
         placeholder="Thread title"
-        className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm text-ink outline-none focus:border-teal-800/40"
+        className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm text-ink outline-none focus:border-accent"
       />
       <textarea
         name="body"
@@ -57,13 +57,13 @@ export function NewThreadForm({
         rows={5}
         maxLength={10000}
         placeholder={PLACEHOLDER_NEW_THREAD}
-        className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm text-ink outline-none focus:border-teal-800/40"
+        className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm text-ink outline-none focus:border-accent"
       />
       {error ? <p className="text-sm text-red-700">{error}</p> : null}
       <button
         type="submit"
         disabled={pending}
-        className="rounded-full bg-teal-800 px-4 py-2 text-sm font-medium text-white hover:bg-teal-900 disabled:opacity-60"
+        className="btn btn-primary disabled:opacity-60"
       >
         {pending ? "Posting…" : "Post thread"}
       </button>

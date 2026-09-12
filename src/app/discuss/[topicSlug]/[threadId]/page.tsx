@@ -43,10 +43,10 @@ export default async function ThreadPage({
 
   if (!dbReady) {
     return (
-      <div className="mx-auto max-w-3xl space-y-4 px-4 py-10 sm:px-6">
+      <div className="page-wrap space-y-4">
         <DiscussBanner />
         <DbMissingBanner />
-        <Link href="/discuss" className="text-sm text-teal-800 hover:underline">
+        <Link href="/discuss" className="text-sm text-accent hover:underline">
           ← All topics
         </Link>
       </div>
@@ -64,11 +64,11 @@ export default async function ThreadPage({
   });
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-teal-800">
+    <div className="page-wrap">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
         {thread.topicTitle}
       </p>
-      <h1 className="font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+      <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         {thread.title}
         {thread.hiddenAt ? (
           <span className="ml-2 align-middle text-xs font-sans font-normal uppercase tracking-wide text-amber-800">
@@ -88,7 +88,7 @@ export default async function ThreadPage({
       <div className="mt-8 space-y-6">
         <DiscussBanner />
 
-        <article className="rounded-2xl border border-border bg-card p-5">
+        <article className="surface p-5">
           <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink/90">
             {thread.body}
           </p>
@@ -109,16 +109,16 @@ export default async function ThreadPage({
         </article>
 
         <section className="space-y-3">
-          <h2 className="font-serif text-xl font-semibold text-ink">Replies</h2>
+          <h2 className="text-xl font-semibold text-ink">Replies</h2>
           {replies.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-stone-300 bg-card/70 p-5 text-sm text-ink/80">
+            <div className="surface p-5 text-sm text-ink">
               {EMPTY_NO_REPLIES}
             </div>
           ) : (
             replies.map((reply) => (
               <div
                 key={reply.id}
-                className="rounded-2xl border border-border bg-card p-5"
+                className="surface p-5"
               >
                 <p className="text-xs text-muted">
                   {reply.authorDisplayName} ·{" "}
@@ -165,7 +165,7 @@ export default async function ThreadPage({
         <p className="text-sm">
           <Link
             href={`/discuss/${topicSlug}`}
-            className="text-teal-800 hover:underline"
+            className="text-accent hover:underline"
           >
             ← {thread.topicTitle}
           </Link>

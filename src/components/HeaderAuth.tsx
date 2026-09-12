@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useAuth, UserButton } from "@clerk/nextjs";
 
 const signInClassName =
-  "rounded-full border border-border bg-card px-3 py-1.5 text-sm text-ink/80 hover:bg-stone-100";
+  "btn btn-ghost px-3 py-1.5 text-sm";
 
 function SignInLink() {
   return (

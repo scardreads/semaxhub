@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { learnNav } from "@/lib/nav";
 
 const triggerClass =
-  "rounded-full px-2.5 py-1.5 text-sm text-ink/75 transition hover:bg-stone-200/60 hover:text-ink";
+  "rounded-full px-2.5 py-1.5 text-sm text-ink/75 transition hover:bg-accent-soft hover:text-ink";
 
 function fineHover(): boolean {
   return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -80,14 +80,14 @@ export function LearnMenu() {
         <div className="absolute left-1/2 top-full z-50 min-w-52 -translate-x-1/2 pt-1.5">
           <div
             role="menu"
-            className="rounded-2xl border border-border bg-card p-2 shadow-lg"
+            className="rounded-xl border border-border bg-card p-2 shadow-lg"
           >
             {learnNav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 role="menuitem"
-                className="block rounded-xl px-3 py-2 text-sm text-ink/80 hover:bg-stone-100"
+                className="block rounded-xl px-3 py-2 text-sm text-ink/80 hover:bg-accent-soft"
                 onClick={() => setOpen(false)}
               >
                 {item.label}

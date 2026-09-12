@@ -3,7 +3,7 @@ import { teachPages } from "@/lib/nav";
 
 export default function HomePage() {
   return (
-    <div className="home home-pilot">
+    <div className="home">
       <section className="home-hero">
         <div className="home-hero-inner">
           <p className="home-eyebrow">

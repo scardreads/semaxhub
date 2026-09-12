@@ -25,6 +25,19 @@ export function AppClerkProvider({ children }: { children: ReactNode }) {
       publishableKey={key}
       proxyUrl={clerkClientProxyUrl()}
       {...scriptProps}
+      appearance={{
+        variables: {
+          colorPrimary: "#2F6FED",
+          colorBackground: "#ffffff",
+          colorForeground: "#1D1D1F",
+          colorMutedForeground: "#6E6E73",
+          colorInput: "#ffffff",
+          colorInputForeground: "#1D1D1F",
+          borderRadius: "0.75rem",
+          fontFamily:
+            'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        },
+      }}
       signInUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL ?? "/sign-in"}
       signUpUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL ?? "/sign-up"}
       signInFallbackRedirectUrl={

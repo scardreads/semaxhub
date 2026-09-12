@@ -26,11 +26,11 @@ export default async function DiscussIndexPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-teal-800">
+    <div className="page-wrap">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
         Reading room
       </p>
-      <h1 className="font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+      <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         Discuss
       </h1>
       <p className="mt-3 text-lg leading-relaxed text-ink/75">
@@ -42,7 +42,7 @@ export default async function DiscussIndexPage() {
         <DiscussBanner />
         {!dbReady ? <DbMissingBanner /> : null}
         {loadError ? (
-          <div className="rounded-2xl border border-amber-700/20 bg-amber-50 px-4 py-3 text-sm text-amber-950/85">
+          <div className="surface px-4 py-3 text-sm text-ink">
             {loadError}
           </div>
         ) : null}
@@ -53,10 +53,10 @@ export default async function DiscussIndexPage() {
               <Link
                 key={topic.id}
                 href={`/discuss/${topic.slug}`}
-                className="block rounded-2xl border border-border bg-card p-5 transition hover:border-teal-800/25"
+                className="block surface p-5 transition hover:border-accent/40"
               >
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h2 className="font-serif text-xl font-semibold text-ink">
+                  <h2 className="text-xl font-semibold text-ink">
                     {topic.title}
                   </h2>
                   <span className="text-xs text-muted">

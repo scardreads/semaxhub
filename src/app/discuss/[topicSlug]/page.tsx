@@ -43,10 +43,10 @@ export default async function TopicPage({
 
   if (!dbReady) {
     return (
-      <div className="mx-auto max-w-3xl space-y-4 px-4 py-10 sm:px-6">
+      <div className="page-wrap space-y-4">
         <DiscussBanner />
         <DbMissingBanner />
-        <Link href="/discuss" className="text-sm text-teal-800 hover:underline">
+        <Link href="/discuss" className="text-sm text-accent hover:underline">
           ← All topics
         </Link>
       </div>
@@ -62,11 +62,11 @@ export default async function TopicPage({
   const threads = await listThreadsForTopic(topic.id, { includeHidden: admin });
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-teal-800">
+    <div className="page-wrap">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
         Reading room
       </p>
-      <h1 className="font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+      <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         {topic.title}
       </h1>
       <p className="mt-3 text-lg leading-relaxed text-ink/75">
@@ -74,7 +74,7 @@ export default async function TopicPage({
       </p>
       {topic.teachHref ? (
         <p className="mt-2 text-sm">
-          <Link href={topic.teachHref} className="text-teal-800 hover:underline">
+          <Link href={topic.teachHref} className="text-accent hover:underline">
             Read the teach page →
           </Link>
         </p>
@@ -95,19 +95,19 @@ export default async function TopicPage({
 
         <div className="space-y-3">
           {threads.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-stone-300 bg-card/70 p-5 text-sm text-ink/80">
+            <div className="surface p-5 text-sm text-ink">
               {EMPTY_NO_THREADS}
             </div>
           ) : (
             threads.map((thread) => (
               <div
                 key={thread.id}
-                className="rounded-2xl border border-border bg-card p-5"
+                className="surface p-5"
               >
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <Link
                     href={`/discuss/${topic.slug}/${thread.id}`}
-                    className="font-serif text-xl font-semibold text-ink hover:text-teal-900"
+                    className="text-xl font-semibold text-ink hover:text-accent"
                   >
                     {thread.title}
                     {thread.hiddenAt ? (
@@ -148,7 +148,7 @@ export default async function TopicPage({
         </div>
 
         <p className="text-sm">
-          <Link href="/discuss" className="text-teal-800 hover:underline">
+          <Link href="/discuss" className="text-accent hover:underline">
             ← All topics
           </Link>
         </p>

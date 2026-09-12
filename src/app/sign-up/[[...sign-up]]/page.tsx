@@ -10,13 +10,13 @@ export default function SignUpPage() {
   if (!key) {
     return (
       <div className="mx-auto max-w-md px-4 py-16 text-center">
-        <h1 className="font-serif text-2xl font-semibold text-ink">Sign up</h1>
+        <h1 className="text-2xl font-semibold text-ink">Sign up</h1>
         <p className="mt-3 text-sm text-muted">
           Clerk is not configured yet. Set NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY and
           CLERK_SECRET_KEY, then enable Email verification and Google OAuth in
           the Clerk dashboard.
         </p>
-        <Link href="/discuss" className="mt-6 inline-block text-teal-800 hover:underline">
+        <Link href="/discuss" className="mt-6 inline-block text-accent hover:underline">
           Back to Discuss
         </Link>
       </div>

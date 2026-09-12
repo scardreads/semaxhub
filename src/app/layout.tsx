@@ -1,19 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import { AppClerkProvider } from "@/components/ClerkProvider";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import "./globals.css";
-
-const sans = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
-
-const serif = Source_Serif_4({
-  variable: "--font-serif",
-  subsets: ["latin"],
-});
 
 const mono = JetBrains_Mono({
   variable: "--font-mono",
@@ -36,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${sans.variable} ${serif.variable} ${mono.variable} antialiased`}>
+      <body className={`${mono.variable} antialiased`}>
         <AppClerkProvider>
           <SiteHeader />
           <main className="min-h-[70vh]">{children}</main>

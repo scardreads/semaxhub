@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <PageShell>
-      <h1 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-ink">
+      <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-ink">
         Why Semax Hub exists
       </h1>
       <div className="mt-6 space-y-5 text-lg leading-relaxed text-ink/85">
@@ -26,14 +26,14 @@ export default function AboutPage() {
       </div>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-sm">
-          <h2 className="font-serif text-xl font-semibold text-ink">What we are</h2>
+        <div className="surface p-5 sm:p-6">
+          <h2 className="text-xl font-semibold text-ink">What we are</h2>
           <p className="mt-3 leading-relaxed text-ink/85">
             An informational hub and a reading-room style discussion space.
           </p>
         </div>
-        <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-sm">
-          <h2 className="font-serif text-xl font-semibold text-ink">What we aren&apos;t</h2>
+        <div className="surface p-5 sm:p-6">
+          <h2 className="text-xl font-semibold text-ink">What we aren&apos;t</h2>
           <p className="mt-3 leading-relaxed text-ink/85">
             A store, a clinic, or a dosing guide.
           </p>
@@ -45,8 +45,8 @@ export default function AboutPage() {
         we don&apos;t have one yet, we say so.
       </p>
 
-      <div className="mt-8 rounded-2xl border border-teal-800/15 bg-teal-50/60 p-5 sm:p-6">
-        <p className="font-medium text-teal-900">
+      <div className="surface mt-8 p-5 sm:p-6">
+        <p className="font-medium text-ink">
           Promise: Curious. Sourced. Never a shop.
         </p>
       </div>
