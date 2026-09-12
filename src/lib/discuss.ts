@@ -102,3 +102,86 @@ export async function listRepliesForThread(
     .where(and(...conditions))
     .orderBy(asc(schema.replies.createdAt));
 }
+
+export type HomeDiscussHighlight = {
+  id: string;
+  title: string;
+  authorDisplayName: string;
+  createdAt: Date;
+  topicSlug: string;
+  replyCount: number;
+  source: "recent" | "popular";
+};
+
+export async function listHomeDiscussHighlights(
+  limit = 6,
+): Promise<HomeDiscussHighlight[]> {
+  if (!isDatabaseConfigured()) return [];
+  try {
+    const db = getDb();
+    const rows = await db
+      .select({
+        id: schema.threads.id,
+        title: schema.threads.title,
+        authorDisplayName: schema.threads.authorDisplayName,
+        createdAt: schema.threads.createdAt,
+        topicSlug: schema.topics.slug,
+        replyCount: sql<number>`cast(count(${schema.replies.id}) as int)`,
+      })
+      .from(schema.threads)
+      .innerJoin(schema.topics, eq(schema.topics.id, schema.threads.topicId))
+      .leftJoin(
+        schema.replies,
+        and(
+          eq(schema.replies.threadId, schema.threads.id),
+          isNull(schema.replies.hiddenAt),
+        ),
+      )
+      .where(isNull(schema.threads.hiddenAt))
+      .groupBy(
+        schema.threads.id,
+        schema.threads.title,
+        schema.threads.authorDisplayName,
+        schema.threads.createdAt,
+        schema.topics.slug,
+      );
+
+    const recent = [...rows].sort(
+      (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
+    );
+    const popular = [...rows].sort((a, b) => {
+      const byReplies = Number(b.replyCount) - Number(a.replyCount);
+      if (byReplies !== 0) return byReplies;
+      return b.createdAt.getTime() - a.createdAt.getTime();
+    });
+
+    const picked: HomeDiscussHighlight[] = [];
+    const seen = new Set<string>();
+    const take = Math.max(1, Math.ceil(limit / 2));
+
+    const push = (
+      row: (typeof rows)[number],
+      source: HomeDiscussHighlight["source"],
+    ) => {
+      if (seen.has(row.id) || picked.length >= limit) return;
+      seen.add(row.id);
+      picked.push({
+        id: row.id,
+        title: row.title,
+        authorDisplayName: row.authorDisplayName,
+        createdAt: row.createdAt,
+        topicSlug: row.topicSlug,
+        replyCount: Number(row.replyCount),
+        source,
+      });
+    };
+
+    for (let i = 0; i < take; i++) {
+      if (recent[i]) push(recent[i], "recent");
+      if (popular[i]) push(popular[i], "popular");
+    }
+    return picked;
+  } catch {
+    return [];
+  }
+}

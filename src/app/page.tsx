@@ -1,7 +1,20 @@
 import Link from "next/link";
+import { listHomeDiscussHighlights } from "@/lib/discuss";
 import { teachPages } from "@/lib/nav";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+function formatDate(value: Date) {
+  return value.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+
+export default async function HomePage() {
+  const highlights = await listHomeDiscussHighlights(6);
+
   return (
     <div className="home">
       <section className="home-hero">
@@ -30,52 +43,27 @@ export default function HomePage() {
       </section>
 
       <section className="home-section">
-        <div className="home-split">
-          <div className="home-card">
-            <h2 className="home-h2">
-              Documented origin, not folklore ops stories
-            </h2>
-            <p className="home-body">
-              The publicly documented story points to Russia&apos;s Institute of Molecular
-              Genetics in the early 1980s. Work associated with N.F. Myasoedov,
-              I.P. Ashmarin, and colleagues turned an adrenocorticotropic hormone (ACTH)
-              fragment into the stabilized heptapeptide{" "}
-              <span className="home-mono">MEHFPGP</span>
-              {" "}(Semax&apos;s seven-letter amino-acid code). That laboratory and
-              peptide-design record is what we treat as established.
-            </p>
-            <p className="home-body">
-              Online lore sometimes claims a dramatic KGB operations origin. That
-              folklore is memorable as a discovery hook. It is <strong>not</strong>{" "}
-              established as historical fact on this site. We label folklore as
-              folklore, then land on what Institute of Molecular Genetics researchers documented.
-            </p>
-            <Link href="/origin" className="home-inline-link">
-              Read the origin story →
-            </Link>
-          </div>
-          <div className="home-card home-card-wash">
-            <h2 className="home-h2">What this site is</h2>
-            <ul className="home-list">
-              <li>An informational hub with sourced teach pages.</li>
-              <li>A reading-room style discussion space.</li>
-              <li>Clear about gaps: if we lack a citation, we say so.</li>
-            </ul>
-            <h3 className="home-h3">What it isn&apos;t</h3>
-            <ul className="home-list">
-              <li>Not a store, clinic, or dosing guide.</li>
-              <li>No carts. No &quot;buy Semax.&quot; No medical advice.</li>
-            </ul>
-            <p className="home-promise">
-              Promise: Curious. Sourced. Never a shop.
-            </p>
-          </div>
+        <div className="home-card home-card-solo">
+          <h2 className="home-h2">What this site is</h2>
+          <ul className="home-list">
+            <li>An informational hub with sourced teach pages.</li>
+            <li>A reading-room style discussion space.</li>
+            <li>Clear about gaps: if we lack a citation, we say so.</li>
+          </ul>
+          <h3 className="home-h3">What it isn&apos;t</h3>
+          <ul className="home-list">
+            <li>Not a store, clinic, or dosing guide.</li>
+            <li>No carts. No &quot;buy Semax.&quot; No medical advice.</li>
+          </ul>
+          <p className="home-promise">
+            Promise: Curious. Sourced. Never a shop.
+          </p>
         </div>
       </section>
 
-      <section className="home-section home-section-last">
+      <section className="home-section">
         <div className="home-section-head">
-          <h2 className="home-h2">Start reading</h2>
+          <h2 className="home-h2">Learn</h2>
           <Link href="/sources" className="home-meta-link">
             Sources hub
           </Link>
@@ -88,6 +76,46 @@ export default function HomePage() {
             </Link>
           ))}
         </div>
+      </section>
+
+      <section className="home-section home-section-last">
+        <div className="home-section-head">
+          <h2 className="home-h2">Discuss</h2>
+          <Link href="/discuss" className="home-meta-link">
+            See all discussions
+          </Link>
+        </div>
+        {highlights.length === 0 ? (
+          <div className="home-card home-card-solo">
+            <p className="home-body">
+              No discussions yet. The reading room is open — anyone can read,
+              and signed-in members can start a thread.
+            </p>
+            <Link href="/discuss" className="home-inline-link">
+              Go to Discuss →
+            </Link>
+          </div>
+        ) : (
+          <div className="home-grid">
+            {highlights.map((thread) => (
+              <Link
+                key={thread.id}
+                href={`/discuss/${thread.topicSlug}/${thread.id}`}
+                className="home-read-card"
+              >
+                <p className="home-thread-kicker">
+                  {thread.source === "popular" ? "Popular" : "Recent"}
+                </p>
+                <h3 className="home-read-title">{thread.title}</h3>
+                <p className="home-read-blurb">
+                  {thread.authorDisplayName} · {formatDate(thread.createdAt)} ·{" "}
+                  {thread.replyCount}{" "}
+                  {thread.replyCount === 1 ? "reply" : "replies"}
+                </p>
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
