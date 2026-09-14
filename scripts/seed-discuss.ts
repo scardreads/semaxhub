@@ -17,7 +17,7 @@ const SEED_TOPICS = [
     slug: "origin-folklore",
     title: "Origin / folklore",
     description:
-      "KGB nicknames vs what Institute of Molecular Genetics researchers documented.",
+      "KGB and Limitless nicknames vs what Institute of Molecular Genetics researchers documented.",
     teachHref: "/origin",
     starterPrompt:
       "Where did you first hear ‘KGB peptide,’ and what sourced version convinced you (or didn’t)?",

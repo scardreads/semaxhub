@@ -31,7 +31,7 @@ export const teachPages = [
   {
     href: "/origin",
     title: "Origin story",
-    blurb: "From the KGB peptide hook to the Institute of Molecular Genetics record.",
+    blurb: "From the KGB / Limitless nicknames to the Institute of Molecular Genetics record.",
   },
   {
     href: "/how-it-works",
