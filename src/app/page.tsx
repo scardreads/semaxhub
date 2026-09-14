@@ -20,12 +20,12 @@ export default async function HomePage() {
       <section className="home-hero">
         <div className="home-hero-inner">
           <p className="home-eyebrow">
-            The so-called &quot;KGB peptide&quot; and &quot;Limitless&quot; peptide, explained
+            The so-called “KGB peptide” and “Limitless peptide,” explained
           </p>
           <h1 className="home-title">Semax, the definitive resource</h1>
           <p className="home-subhead">
             Semax Hub is a free resource on the peptide known as the
-            &quot;KGB brain spray&quot; and, online, the &quot;Limitless&quot; peptide: what it is,
+            “KGB brain spray” and, online, the “Limitless peptide”: what it is,
             where the story actually comes from, and what the research does (and
             doesn&apos;t) say.
           </p>

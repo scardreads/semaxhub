@@ -19,7 +19,7 @@ export default function AboutPage() {
           confusions (including Semax vs Selank), without wading through sales pages.
         </p>
         <p>
-          We lean into memorable hooks like &quot;KGB peptide&quot; and &quot;Limitless&quot; peptide
+          We lean into memorable hooks like “KGB peptide” and “Limitless peptide”
           only as discovery. Then we land on the Institute of Molecular Genetics
           record and flag what&apos;s folklore vs what&apos;s documented.
         </p>
