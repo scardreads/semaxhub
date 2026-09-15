@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useAuth, useUser, UserButton } from "@clerk/nextjs";
 import { displayNameFromUser } from "@/lib/display-name";
+import { SyncOAuthAvatar } from "@/components/SyncOAuthAvatar";
 
 const signInClassName =
   "btn btn-ghost px-3 py-1.5 text-sm";
@@ -33,6 +34,7 @@ function HeaderAuthLoaded() {
 
   return (
     <div className="flex items-center gap-2">
+      <SyncOAuthAvatar />
       {name ? (
         <span className="max-w-[12ch] truncate text-sm font-medium text-ink sm:max-w-[16ch]">
           {name}
