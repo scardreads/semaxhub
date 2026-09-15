@@ -9,11 +9,11 @@ export function SiteFooter() {
           <p className="mt-2 text-sm leading-relaxed">
             Informational only. Not medical advice. We don&apos;t sell Semax.
           </p>
+          <p className="mt-2 text-sm text-ink/70">© 2026 SemaxHub. All rights reserved.</p>
         </div>
         <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
           <Link href="/about">About</Link>
-          <Link href="/sources">Sources</Link>
-          <Link href="/semax-vs-selank">Semax vs Selank</Link>
+          <Link href="/learn">Learn</Link>
           <Link href="/discuss">Discuss</Link>
         </div>
       </div>
