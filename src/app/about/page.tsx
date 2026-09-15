@@ -14,9 +14,15 @@ export default function AboutPage() {
       </h1>
       <div className="mt-6 space-y-5 text-lg leading-relaxed text-ink/85">
         <p>
-          Semax Hub is a free resource on Semax: history, how it works, evidence,
-          safety context, and common confusions (including Semax vs Selank). We aim
-          for a clear, sourced picture — and we don&apos;t sell Semax.
+          Semax Hub is a clear, sourced place to learn about Semax: history, how it
+          may work, the evidence map, safety context, regulatory status, and common
+          confusions (including Semax vs Selank).
+        </p>
+        <p>
+          We separate sticky nicknames from documented research, including work tied
+          to the Institute of Molecular Genetics, and we say when something is
+          folklore versus when it is sourced. Informational only. We don&apos;t sell
+          Semax.
         </p>
       </div>
 
