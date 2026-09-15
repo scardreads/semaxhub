@@ -116,7 +116,7 @@ export default async function HomePage() {
         <div className="home-card home-card-solo">
           <h2 className="home-h2">What this site is</h2>
           <ul className="home-list">
-            <li>An informational hub with sourced teach pages.</li>
+            <li>An informational hub with sourced guides.</li>
             <li>A reading-room style discussion space.</li>
             <li>Clear about gaps: if we lack a citation, we say so.</li>
           </ul>
