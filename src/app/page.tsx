@@ -125,9 +125,6 @@ export default async function HomePage() {
             <li>Not a store, clinic, or dosing guide.</li>
             <li>No carts. No &quot;buy Semax.&quot; No medical advice.</li>
           </ul>
-          <p className="home-promise">
-            Promise: Curious. Sourced. Never a shop.
-          </p>
         </div>
       </section>
     </div>

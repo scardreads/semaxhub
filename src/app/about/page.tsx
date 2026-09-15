@@ -14,14 +14,9 @@ export default function AboutPage() {
       </h1>
       <div className="mt-6 space-y-5 text-lg leading-relaxed text-ink/85">
         <p>
-          Semax Hub is here so newcomers can get a clear, sourced picture of Semax:
-          history, mechanisms people discuss, evidence map, safety context, and common
-          confusions (including Semax vs Selank), without wading through sales pages.
-        </p>
-        <p>
-          We lean into memorable hooks like “KGB peptide” and “Limitless peptide”
-          only as discovery. Then we land on the Institute of Molecular Genetics
-          record and flag what&apos;s folklore vs what&apos;s documented.
+          Semax Hub is a free resource on Semax: history, how it works, evidence,
+          safety context, and common confusions (including Semax vs Selank). We aim
+          for a clear, sourced picture — and we don&apos;t sell Semax.
         </p>
       </div>
 
@@ -45,11 +40,6 @@ export default function AboutPage() {
         we don&apos;t have one yet, we say so.
       </p>
 
-      <div className="surface mt-8 p-5 sm:p-6">
-        <p className="font-medium text-ink">
-          Promise: Curious. Sourced. Never a shop.
-        </p>
-      </div>
     </PageShell>
   );
 }
