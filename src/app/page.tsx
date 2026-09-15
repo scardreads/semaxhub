@@ -24,10 +24,12 @@ export default async function HomePage() {
           </p>
           <h1 className="home-title">Semax, the definitive resource</h1>
           <p className="home-subhead">
-            Semax Hub is sourced guides and discussion on the peptide known as the
-            “KGB brain spray” and, online, the “Limitless peptide”: what it is,
-            what the research says, and a place to exchange knowledge with
-            like-minded people.
+            Semax Hub is the place for sourced knowledge and discussion on the
+            peptide known as the “KGB brain spray” and the “Limitless peptide.”
+          </p>
+          <p className="home-subhead">
+            Learn what it is, what the research says and, through discussion,
+            exchange knowledge with like-minded people.
           </p>
           <div className="home-actions">
             <Link href="/discuss" className="home-cta home-cta-primary">

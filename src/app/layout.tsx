@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Semax Hub",
   },
   description:
-    "Sourced guides and discussion on the peptide known as the \"KGB brain spray\" and, online, the \"Limitless peptide\": what the research says, and a place to exchange knowledge with like-minded people.",
+    "Semax Hub is the place for sourced knowledge and discussion on the peptide known as the \"KGB brain spray\" and the \"Limitless peptide.\" Learn what it is, what the research says and, through discussion, exchange knowledge with like-minded people.",
 };
 
 export default function RootLayout({
