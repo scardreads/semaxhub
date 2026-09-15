@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Semax Hub",
   },
   description:
-    "A free resource on the peptide known as the \"KGB brain spray\" and, online, the \"Limitless peptide\": what it is, where the story actually comes from, and what the research does (and doesn't) say.",
+    "Sourced guides and discussion on the peptide known as the \"KGB brain spray\" and, online, the \"Limitless peptide\": what the research says, and a place to exchange knowledge with like-minded people.",
 };
 
 export default function RootLayout({
