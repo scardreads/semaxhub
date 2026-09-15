@@ -64,3 +64,6 @@ export const teachPages = [
     blurb: "Footnotes hub. We flag what still needs a citation.",
   },
 ] as const;
+
+/** First six guides for home Learn (Regulatory + Sources only on /learn). */
+export const homeLearnPages = teachPages.slice(0, 6);

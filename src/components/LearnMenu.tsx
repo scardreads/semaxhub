@@ -65,23 +65,28 @@ export function LearnMenu() {
         }, 150);
       }}
     >
-      <button
-        type="button"
+      <Link
+        href="/learn"
         className={triggerClass}
         aria-expanded={open}
         aria-haspopup="menu"
-        onClick={() => {
-          if (!fineHover()) setOpen((current) => !current);
-        }}
       >
         Learn
-      </button>
+      </Link>
       {open ? (
         <div className="absolute left-1/2 top-full z-50 min-w-52 -translate-x-1/2 pt-1.5">
           <div
             role="menu"
             className="rounded-xl border border-border bg-card p-2 shadow-lg"
           >
+            <Link
+              href="/learn"
+              role="menuitem"
+              className="block rounded-xl px-3 py-2 text-sm text-ink/80 hover:bg-accent-soft"
+              onClick={() => setOpen(false)}
+            >
+              All guides
+            </Link>
             {learnNav.map((item) => (
               <Link
                 key={item.href}

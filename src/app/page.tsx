@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { listHomeDiscussModules } from "@/lib/discuss";
-import { teachPages } from "@/lib/nav";
+import { homeLearnPages } from "@/lib/nav";
 
 export const dynamic = "force-dynamic";
 
@@ -46,16 +46,16 @@ export default async function HomePage() {
           <div>
             <h2 className="home-h2">Learn</h2>
             <p className="home-section-lede">
-              Clear pages on what Semax is, where it came from, and what the
-              research says.
+              Clear, sourced guides on what Semax is, where it came from, and
+              what the research says.
             </p>
           </div>
-          <Link href="/sources" className="home-meta-link">
-            Sources hub
+          <Link href="/learn" className="home-meta-link">
+            Browse all guides
           </Link>
         </div>
         <div className="home-grid">
-          {teachPages.map((page) => (
+          {homeLearnPages.map((page) => (
             <Link key={page.href} href={page.href} className="home-read-card">
               <h3 className="home-read-title">{page.title}</h3>
               <p className="home-read-blurb">{page.blurb}</p>
