@@ -78,7 +78,7 @@ export default async function TopicPage({
       {topic.teachHref ? (
         <p className="mt-2 text-sm">
           <Link href={topic.teachHref} className="text-accent hover:underline">
-            Read the sourced guide →
+            Read the guide →
           </Link>
         </p>
       ) : null}
