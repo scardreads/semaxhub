@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useAuth, UserButton } from "@clerk/nextjs";
+import { useAuth, useUser, UserButton } from "@clerk/nextjs";
+import { displayNameFromUser } from "@/lib/display-name";
 
 const signInClassName =
   "btn btn-ghost px-3 py-1.5 text-sm";
@@ -16,12 +17,30 @@ function SignInLink() {
 
 function HeaderAuthLoaded() {
   const { isLoaded, isSignedIn } = useAuth();
+  const { user } = useUser();
 
   if (!isLoaded || !isSignedIn) {
     return <SignInLink />;
   }
 
-  return <UserButton />;
+  const name = user
+    ? displayNameFromUser({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        username: user.username,
+      })
+    : null;
+
+  return (
+    <div className="flex items-center gap-2">
+      {name ? (
+        <span className="max-w-[12ch] truncate text-sm font-medium text-ink sm:max-w-[16ch]">
+          {name}
+        </span>
+      ) : null}
+      <UserButton />
+    </div>
+  );
 }
 
 export function HeaderAuth() {
