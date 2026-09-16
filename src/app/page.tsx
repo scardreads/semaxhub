@@ -18,6 +18,13 @@ export default async function HomePage() {
   return (
     <div className="home">
       <section className="home-hero">
+        <img
+          className="home-hero-media"
+          src="/heroes/times-square-hero.png"
+          alt="Long-exposure photo of Times Square at night, with glowing billboards and light trails from yellow taxis on a wet street."
+          width={2244}
+          height={701}
+        />
         <div className="home-hero-inner">
           <p className="home-eyebrow">
             The so-called “KGB peptide” and “Limitless peptide,” explained
