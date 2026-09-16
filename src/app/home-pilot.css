@@ -15,8 +15,7 @@
   width: 100%;
   max-width: none;
   margin: 0;
-  min-height: 70vh;
-  padding: 80px 24px 64px;
+  padding: 28px 24px;
   text-align: center;
   display: flex;
   align-items: center;
@@ -60,7 +59,7 @@
 
 @media (min-width: 640px) {
   .home-hero {
-    padding: 104px 48px 80px;
+    padding: 36px 40px;
   }
 }
 
