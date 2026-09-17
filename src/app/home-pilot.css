@@ -15,7 +15,7 @@
   width: 100%;
   max-width: none;
   margin: 0;
-  padding: 12px 16px;
+  padding: 8px 12px;
   text-align: center;
   display: flex;
   align-items: center;
@@ -23,6 +23,7 @@
   background-color: #0a0a0c;
   isolation: isolate;
   overflow: hidden;
+  max-height: min(26rem, 72vh);
 }
 
 .home-hero-media {
@@ -59,7 +60,8 @@
 
 @media (min-width: 640px) {
   .home-hero {
-    padding: 16px 24px;
+    padding: 12px 16px;
+    max-height: min(28rem, 68vh);
   }
 }
 
@@ -68,7 +70,7 @@
   z-index: 2;
   max-width: 720px;
   margin: 0 auto;
-  padding: 28px 24px;
+  padding: 20px 24px;
   border-radius: 16px;
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(10px);

@@ -1,27 +1,5 @@
 export type NavItem = { href: string; label: string; group?: string };
 
-export const primaryNav: NavItem[] = [
-  { href: "/what-is-semax", label: "What is Semax?" },
-  { href: "/origin", label: "Origin" },
-  { href: "/how-it-works", label: "How Semax works" },
-  { href: "/evidence", label: "Evidence" },
-  { href: "/safety-faqs", label: "Safety & FAQs" },
-  { href: "/semax-vs-selank", label: "Semax vs Selank" },
-  { href: "/regulatory", label: "Regulatory" },
-  { href: "/sources", label: "Sources" },
-  { href: "/discuss", label: "Discuss" },
-  { href: "/about", label: "About" },
-];
-
-export const learnNav: NavItem[] = [
-  { href: "/what-is-semax", label: "What Semax is" },
-  { href: "/origin", label: "Origin story" },
-  { href: "/how-it-works", label: "How it works" },
-  { href: "/evidence", label: "Evidence" },
-  { href: "/safety-faqs", label: "Safety & FAQs" },
-  { href: "/regulatory", label: "Regulatory status" },
-];
-
 export const teachPages = [
   {
     href: "/what-is-semax",
@@ -64,6 +42,18 @@ export const teachPages = [
     blurb: "Footnotes hub. We flag what still needs a citation.",
   },
 ] as const;
+
+/** All Learn guides — derived from teachPages (dropdown, /learn order). */
+export const learnNav: NavItem[] = teachPages.map(({ href, title }) => ({
+  href,
+  label: title,
+}));
+
+export const primaryNav: NavItem[] = [
+  ...learnNav,
+  { href: "/discuss", label: "Discuss" },
+  { href: "/about", label: "About" },
+];
 
 /** First six guides for home Learn (Regulatory + Sources only on /learn). */
 export const homeLearnPages = teachPages.slice(0, 6);
