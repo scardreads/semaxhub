@@ -79,14 +79,6 @@ export function LearnMenu() {
             role="menu"
             className="rounded-xl border border-border bg-card p-2 shadow-lg"
           >
-            <Link
-              href="/learn"
-              role="menuitem"
-              className="block rounded-xl px-3 py-2 text-sm text-ink/80 hover:bg-accent-soft"
-              onClick={() => setOpen(false)}
-            >
-              All guides
-            </Link>
             {learnNav.map((item) => (
               <Link
                 key={item.href}
