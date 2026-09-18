@@ -10,7 +10,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx scripts/migrate-discuss.ts",
     "db:push": "drizzle-kit push",
-    "db:seed": "tsx scripts/seed-discuss.ts"
+    "db:seed": "tsx scripts/seed-discuss.ts",
+    "db:backfill-author-images": "tsx scripts/backfill-author-images.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.9.2",
