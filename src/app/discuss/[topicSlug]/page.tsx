@@ -8,6 +8,7 @@ import { SignInCta } from "@/components/discuss/SignInCta";
 import { NewThreadForm } from "@/components/discuss/NewThreadForm";
 import { AdminHideButton } from "@/components/discuss/AdminHideButton";
 import { ReportButton } from "@/components/discuss/ReportButton";
+import { AuthorMeta } from "@/components/discuss/AuthorAvatar";
 import { isAdmin } from "@/lib/admin";
 import { EMPTY_NO_THREADS } from "@/lib/discuss-copy";
 import {
@@ -137,14 +138,18 @@ export default async function TopicPage({
                 <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">
                   {thread.body}
                 </p>
-                <p className="mt-3 text-xs text-muted">
-                  {thread.authorDisplayName} ·{" "}
+                <AuthorMeta
+                  name={thread.authorDisplayName}
+                  imageUrl={thread.authorImageUrl}
+                  className="mt-3 flex items-center gap-2 text-xs text-muted"
+                >
+                  {" · "}
                   {thread.createdAt.toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "short",
                     day: "numeric",
                   })}
-                </p>
+                </AuthorMeta>
               </div>
             ))
           )}

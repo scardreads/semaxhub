@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { listHomeDiscussModules } from "@/lib/discuss";
+import { AuthorAvatar } from "@/components/discuss/AuthorAvatar";
 import { homeLearnPages } from "@/lib/nav";
 
 export const dynamic = "force-dynamic";
@@ -103,10 +104,17 @@ export default async function HomePage() {
                     {item.source === "popular" ? "Popular" : "Recent"}
                   </p>
                   <h3 className="home-read-title">{item.title}</h3>
-                  <p className="home-read-blurb">
-                    {item.authorDisplayName} · {formatDate(item.createdAt)} ·{" "}
-                    {item.replyCount}{" "}
-                    {item.replyCount === 1 ? "reply" : "replies"}
+                  <p className="home-read-blurb flex items-center gap-2">
+                    <AuthorAvatar
+                      name={item.authorDisplayName}
+                      imageUrl={item.authorImageUrl}
+                      size={24}
+                    />
+                    <span>
+                      {item.authorDisplayName} · {formatDate(item.createdAt)} ·{" "}
+                      {item.replyCount}{" "}
+                      {item.replyCount === 1 ? "reply" : "replies"}
+                    </span>
                   </p>
                 </Link>
               ) : (

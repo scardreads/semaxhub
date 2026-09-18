@@ -70,6 +70,7 @@ export async function getThreadById(
       topicId: schema.threads.topicId,
       authorClerkId: schema.threads.authorClerkId,
       authorDisplayName: schema.threads.authorDisplayName,
+      authorImageUrl: schema.threads.authorImageUrl,
       title: schema.threads.title,
       body: schema.threads.body,
       createdAt: schema.threads.createdAt,
@@ -110,6 +111,7 @@ export type HomeDiscussModule =
       title: string;
       href: string;
       authorDisplayName: string;
+      authorImageUrl: string | null;
       createdAt: Date;
       replyCount: number;
       source: "recent" | "popular";
@@ -133,6 +135,7 @@ export async function listHomeDiscussModules(
         id: schema.threads.id,
         title: schema.threads.title,
         authorDisplayName: schema.threads.authorDisplayName,
+        authorImageUrl: schema.threads.authorImageUrl,
         createdAt: schema.threads.createdAt,
         topicSlug: schema.topics.slug,
         replyCount: sql<number>`cast(count(${schema.replies.id}) as int)`,
@@ -151,6 +154,7 @@ export async function listHomeDiscussModules(
         schema.threads.id,
         schema.threads.title,
         schema.threads.authorDisplayName,
+        schema.threads.authorImageUrl,
         schema.threads.createdAt,
         schema.topics.slug,
       );
@@ -181,6 +185,7 @@ export async function listHomeDiscussModules(
         title: row.title,
         href: `/discuss/${row.topicSlug}/${row.id}`,
         authorDisplayName: row.authorDisplayName,
+        authorImageUrl: row.authorImageUrl,
         createdAt: row.createdAt,
         replyCount: Number(row.replyCount),
         source,

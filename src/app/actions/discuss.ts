@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { getDb, isDatabaseConfigured, schema } from "@/db";
 import { isAdmin, displayNameFromUser } from "@/lib/admin";
 import { isClerkConfigured, safeAuth, safeCurrentUser } from "@/lib/auth-safe";
+import { imageUrlFromUser } from "@/lib/author-image";
 
 function requireDb() {
   if (!isDatabaseConfigured()) {
@@ -22,12 +23,13 @@ async function requireSignedIn() {
   return {
     userId,
     displayName: displayNameFromUser(user),
+    imageUrl: imageUrlFromUser(user),
   };
 }
 
 export async function createThread(formData: FormData) {
   requireDb();
-  const { userId, displayName } = await requireSignedIn();
+  const { userId, displayName, imageUrl } = await requireSignedIn();
   const topicId = String(formData.get("topicId") ?? "").trim();
   const title = String(formData.get("title") ?? "").trim();
   const body = String(formData.get("body") ?? "").trim();
@@ -46,6 +48,7 @@ export async function createThread(formData: FormData) {
       topicId,
       authorClerkId: userId,
       authorDisplayName: displayName,
+      authorImageUrl: imageUrl,
       title,
       body,
     })
@@ -58,7 +61,7 @@ export async function createThread(formData: FormData) {
 
 export async function createReply(formData: FormData) {
   requireDb();
-  const { userId, displayName } = await requireSignedIn();
+  const { userId, displayName, imageUrl } = await requireSignedIn();
   const threadId = String(formData.get("threadId") ?? "").trim();
   const body = String(formData.get("body") ?? "").trim();
   const topicSlug = String(formData.get("topicSlug") ?? "").trim();
@@ -80,6 +83,7 @@ export async function createReply(formData: FormData) {
     threadId,
     authorClerkId: userId,
     authorDisplayName: displayName,
+    authorImageUrl: imageUrl,
     body,
   });
 

@@ -8,6 +8,7 @@ import { SignInCta } from "@/components/discuss/SignInCta";
 import { NewReplyForm } from "@/components/discuss/NewReplyForm";
 import { AdminHideButton } from "@/components/discuss/AdminHideButton";
 import { ReportButton } from "@/components/discuss/ReportButton";
+import { AuthorMeta } from "@/components/discuss/AuthorAvatar";
 import { isAdmin } from "@/lib/admin";
 import { EMPTY_NO_REPLIES } from "@/lib/discuss-copy";
 import {
@@ -79,14 +80,18 @@ export default async function ThreadPage({
           </span>
         ) : null}
       </h1>
-      <p className="mt-3 text-sm text-muted">
-        {thread.authorDisplayName} ·{" "}
+      <AuthorMeta
+        name={thread.authorDisplayName}
+        imageUrl={thread.authorImageUrl}
+        className="mt-3 flex items-center gap-2 text-sm text-muted"
+      >
+        {" · "}
         {thread.createdAt.toLocaleDateString("en-US", {
           year: "numeric",
           month: "short",
           day: "numeric",
         })}
-      </p>
+      </AuthorMeta>
 
       <div className="mt-8 space-y-6">
         <DiscussBanner />
@@ -123,8 +128,12 @@ export default async function ThreadPage({
                 key={reply.id}
                 className="surface p-5"
               >
-                <p className="text-xs text-muted">
-                  {reply.authorDisplayName} ·{" "}
+                <AuthorMeta
+                  name={reply.authorDisplayName}
+                  imageUrl={reply.authorImageUrl}
+                  className="flex items-center gap-2 text-xs text-muted"
+                >
+                  {" · "}
                   {reply.createdAt.toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "short",
@@ -135,7 +144,7 @@ export default async function ThreadPage({
                       hidden
                     </span>
                   ) : null}
-                </p>
+                </AuthorMeta>
                 <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-ink/90">
                   {reply.body}
                 </p>

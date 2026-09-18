@@ -29,6 +29,7 @@ export const threads = pgTable("threads", {
     .references(() => topics.id),
   authorClerkId: text("author_clerk_id").notNull(),
   authorDisplayName: text("author_display_name").notNull(),
+  authorImageUrl: text("author_image_url"),
   title: text("title").notNull(),
   body: text("body").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
@@ -44,6 +45,7 @@ export const replies = pgTable("replies", {
     .references(() => threads.id),
   authorClerkId: text("author_clerk_id").notNull(),
   authorDisplayName: text("author_display_name").notNull(),
+  authorImageUrl: text("author_image_url"),
   body: text("body").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
