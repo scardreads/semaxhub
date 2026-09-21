@@ -23,6 +23,36 @@ const nextConfig: NextConfig = {
         destination: "/how-it-works",
         permanent: true,
       },
+      {
+        source: "/discuss/what-is-semax",
+        destination: "/discuss/general-questions",
+        permanent: true,
+      },
+      {
+        source: "/discuss/origin-folklore",
+        destination: "/discuss/general-questions",
+        permanent: true,
+      },
+      {
+        source: "/discuss/how-semax-works",
+        destination: "/discuss/general-questions",
+        permanent: true,
+      },
+      {
+        source: "/discuss/evidence",
+        destination: "/discuss/general-questions",
+        permanent: true,
+      },
+      {
+        source: "/discuss/safety",
+        destination: "/discuss/side-effects-tolerability",
+        permanent: true,
+      },
+      {
+        source: "/discuss/regulatory-compounding",
+        destination: "/discuss/us-access-regulatory",
+        permanent: true,
+      },
     ];
   },
 };
