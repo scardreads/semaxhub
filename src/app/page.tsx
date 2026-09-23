@@ -14,7 +14,7 @@ function formatDate(value: Date) {
 }
 
 export default async function HomePage() {
-  const modules = await listHomeDiscussModules(4);
+  const modules = await listHomeDiscussModules(6);
 
   return (
     <div className="home">

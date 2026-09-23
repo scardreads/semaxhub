@@ -125,7 +125,7 @@ export type HomeDiscussModule =
     };
 
 export async function listHomeDiscussModules(
-  limit = 4,
+  limit = 6,
 ): Promise<HomeDiscussModule[]> {
   if (!isDatabaseConfigured()) return [];
   try {
