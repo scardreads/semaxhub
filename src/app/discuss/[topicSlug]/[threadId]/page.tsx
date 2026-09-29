@@ -68,7 +68,12 @@ export default async function ThreadPage({
     <div className="page-shell discuss-shell">
       <div className="page-measure">
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
-        {thread.topicTitle}
+        <Link
+          href={`/discuss/${thread.topicSlug}`}
+          className="hover:text-accent hover:underline"
+        >
+          {thread.topicTitle}
+        </Link>
       </p>
       <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
         {thread.title}
