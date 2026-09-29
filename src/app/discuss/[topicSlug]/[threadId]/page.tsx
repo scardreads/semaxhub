@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { safeAuth } from "@/lib/auth-safe";
-import { DiscussBanner } from "@/components/discuss/DiscussBanner";
 import { DbMissingBanner } from "@/components/discuss/DbMissingBanner";
 import { SignInCta } from "@/components/discuss/SignInCta";
 import { NewReplyForm } from "@/components/discuss/NewReplyForm";
@@ -46,7 +45,6 @@ export default async function ThreadPage({
     return (
       <div className="page-shell discuss-shell">
         <div className="page-measure space-y-4">
-          <DiscussBanner />
           <DbMissingBanner />
           <Link href="/discuss" className="text-sm text-accent hover:underline">
             ← All topics
@@ -94,8 +92,6 @@ export default async function ThreadPage({
       </AuthorMeta>
 
       <div className="mt-8 space-y-6">
-        <DiscussBanner />
-
         <article className="surface p-5">
           <p className="whitespace-pre-wrap text-sm leading-relaxed text-ink/90">
             {thread.body}

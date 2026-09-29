@@ -1,9 +1,8 @@
 /** Exact Brand Discuss v1 copy. No em dashes. */
 
-export const DISCUSS_BANNER = `Semax Hub Discuss is a reading-room for questions and peer talk about Semax.
-You can share personal experience, including how you or others use Semax. That is peer discussion only. It is not medical advice from Semax Hub, and it is not a recommendation to start, stop, or change anything.
-Keep it curious, kind, and as sourced as you can. Label guesses as guesses.
-No buy links, vendor pitches, or “DM me for a source.” Sign in to post or reply. Anyone can read.`;
+/** Short orientation for /discuss and topic lists. Thread pages do not render this. */
+export const DISCUSS_ORIENTATION =
+  "Semax Hub Discuss is a reading-room for questions and peer talk about Semax.";
 
 export const DISCUSS_RULES_COMPACT =
   "Peer experiences OK · Not medical advice · No sales · Be kind · Cite when you can";
