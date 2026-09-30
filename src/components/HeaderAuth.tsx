@@ -6,7 +6,7 @@ import { displayNameFromUser } from "@/lib/display-name";
 import { SyncOAuthAvatar } from "@/components/SyncOAuthAvatar";
 
 const signInClassName =
-  "btn btn-ghost px-3 py-1.5 text-sm";
+  "btn btn-ghost px-3 py-1.5 text-sm max-sm:!px-2 max-sm:!py-1 max-sm:!text-[13px]";
 
 function SignInLink() {
   return (
@@ -36,7 +36,7 @@ function HeaderAuthLoaded() {
     <div className="flex items-center gap-2">
       <SyncOAuthAvatar />
       {name ? (
-        <span className="max-w-[12ch] truncate text-sm font-medium text-ink sm:max-w-[16ch]">
+        <span className="hidden max-w-[12ch] truncate text-sm font-medium text-ink sm:inline sm:max-w-[16ch]">
           {name}
         </span>
       ) : null}
