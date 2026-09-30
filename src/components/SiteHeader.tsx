@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { HeaderAuth } from "@/components/HeaderAuth";
 import { LearnMenu } from "@/components/LearnMenu";
@@ -9,8 +10,16 @@ export function SiteHeader() {
   return (
     <header className="site-header sticky top-0 z-40">
       <div className="mx-auto grid max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 py-3 sm:px-6">
-        <Link href="/" className="justify-self-start">
-          <span className="text-xl font-semibold tracking-tight text-ink">
+        <Link href="/" className="flex items-center gap-2 justify-self-start">
+          <Image
+            src="/semax-hub-logo.png"
+            alt=""
+            width={235}
+            height={190}
+            priority
+            className="h-6 w-auto shrink-0 sm:h-8"
+          />
+          <span className="whitespace-nowrap text-xl font-semibold tracking-tight text-ink">
             Semax Hub
           </span>
         </Link>
