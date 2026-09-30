@@ -63,6 +63,23 @@ header.site-header button:hover {
   color: var(--ink);
 }
 
+/* Brand mark sits on a transparent PNG. The shared header hover fill
+   paints a blue rectangle through the logo; keep that fill on nav only. */
+header.site-header a.site-brand:hover,
+header.site-header a.site-brand:focus {
+  background: transparent;
+}
+
+header.site-header a.site-brand:focus-visible {
+  outline: none;
+}
+
+header.site-header a.site-brand:focus-visible .site-brand-name {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 header.site-header [role="menu"] {
   background: var(--card);
   border-color: var(--border);
