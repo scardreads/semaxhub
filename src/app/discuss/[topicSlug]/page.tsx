@@ -9,9 +9,12 @@ import { NewThreadForm } from "@/components/discuss/NewThreadForm";
 import { AdminHideButton } from "@/components/discuss/AdminHideButton";
 import { ReportButton } from "@/components/discuss/ReportButton";
 import { AuthorMeta } from "@/components/discuss/AuthorAvatar";
+import { TopicActivityLine } from "@/components/discuss/TopicActivityLine";
+import { TopicRoomFrame } from "@/components/discuss/TopicRoomFrame";
 import { isAdmin } from "@/lib/admin";
 import { EMPTY_NO_THREADS } from "@/lib/discuss-copy";
 import {
+  getTopicActivity,
   getTopicBySlug,
   isDatabaseConfigured,
   listThreadsForTopic,
@@ -62,7 +65,10 @@ export default async function TopicPage({
   const admin = await isAdmin();
   const { userId } = await safeAuth();
   const signedIn = Boolean(userId);
-  const threads = await listThreadsForTopic(topic.id, { includeHidden: admin });
+  const [threads, activity] = await Promise.all([
+    listThreadsForTopic(topic.id, { includeHidden: admin }),
+    getTopicActivity(topic.id),
+  ]);
 
   return (
     <div className="page-shell discuss-shell">
@@ -70,19 +76,26 @@ export default async function TopicPage({
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
         Reading room
       </p>
-      <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-        {topic.title}
-      </h1>
-      <p className="mt-3 text-lg leading-relaxed text-ink/75">
-        {topic.description}
-      </p>
-      {topic.teachHref ? (
-        <p className="mt-2 text-sm">
-          <Link href={topic.teachHref} className="text-accent hover:underline">
-            Read the guide →
-          </Link>
+      <TopicRoomFrame slug={topic.slug} variant="banner">
+        <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+          {topic.title}
+        </h1>
+        <p className="mt-3 text-lg leading-relaxed text-ink/75">
+          {topic.description}
         </p>
-      ) : null}
+        <TopicActivityLine
+          threadCount={activity.threadCount}
+          replyCount={activity.replyCount}
+          lastActivityAt={activity.lastActivityAt}
+        />
+        {topic.teachHref ? (
+          <p className="mt-3 text-sm">
+            <Link href={topic.teachHref} className="text-accent hover:underline">
+              Read the guide →
+            </Link>
+          </p>
+        ) : null}
+      </TopicRoomFrame>
 
       <div className="mt-8 space-y-6">
         <DiscussBanner />
