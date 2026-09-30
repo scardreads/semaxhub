@@ -17,6 +17,7 @@ export function SiteHeader() {
             width={235}
             height={190}
             priority
+            unoptimized
             className="h-6 w-auto shrink-0 sm:h-8"
           />
           <span className="whitespace-nowrap text-xl font-semibold tracking-tight text-ink">
