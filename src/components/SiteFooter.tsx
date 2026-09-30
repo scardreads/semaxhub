@@ -15,6 +15,8 @@ export function SiteFooter() {
           <Link href="/about">About</Link>
           <Link href="/learn">Learn</Link>
           <Link href="/discuss">Discuss</Link>
+          <Link href="/privacy">Privacy</Link>
+          <Link href="/terms">Terms</Link>
         </div>
       </div>
     </footer>
