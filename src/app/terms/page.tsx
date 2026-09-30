@@ -58,6 +58,13 @@ export default function TermsPage() {
         </p>
       </LegalSection>
 
+      <LegalSection title="Eligibility">
+        <p>
+          Semax Hub is intended for people 18+. You must be 18 or older to use
+          the site and to create an account.
+        </p>
+      </LegalSection>
+
       <LegalSection title="Accounts">
         <p>
           Reading is open. You need an account to start a thread, reply, or

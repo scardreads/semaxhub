@@ -195,11 +195,10 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="Children">
+      <LegalSection title="Age">
         <p>
-          Semax Hub is a general education site. It is not directed at children
-          under 13, and we do not knowingly collect account information from
-          them.
+          Semax Hub is intended for people 18+. We do not knowingly collect
+          account information from anyone under 18.
         </p>
       </LegalSection>
 
