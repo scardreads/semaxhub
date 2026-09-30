@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { DiscussBanner } from "@/components/discuss/DiscussBanner";
 import { DbMissingBanner } from "@/components/discuss/DbMissingBanner";
+import { TopicActivityLine } from "@/components/discuss/TopicActivityLine";
+import { TopicRoomFrame } from "@/components/discuss/TopicRoomFrame";
 import { isDatabaseConfigured, listTopics } from "@/lib/discuss";
 
 export const metadata: Metadata = {
@@ -51,24 +52,21 @@ export default async function DiscussIndexPage() {
         {dbReady && !loadError ? (
           <div className="discuss-list">
             {topics.map((topic) => (
-              <Link
+              <TopicRoomFrame
                 key={topic.id}
+                slug={topic.slug}
                 href={`/discuss/${topic.slug}`}
-                className="block surface px-4 py-3 transition hover:border-accent/40"
               >
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h2 className="text-xl font-semibold text-ink">
-                    {topic.title}
-                  </h2>
-                  <span className="text-xs text-muted">
-                    {topic.threadCount}{" "}
-                    {topic.threadCount === 1 ? "thread" : "threads"}
-                  </span>
-                </div>
+                <h2 className="text-xl font-semibold text-ink">{topic.title}</h2>
                 <p className="mt-2 text-sm leading-relaxed text-muted">
                   {topic.description}
                 </p>
-              </Link>
+                <TopicActivityLine
+                  threadCount={topic.threadCount}
+                  replyCount={topic.replyCount}
+                  lastActivityAt={topic.lastActivityAt}
+                />
+              </TopicRoomFrame>
             ))}
             {topics.length === 0 ? (
               <p className="text-sm text-muted">

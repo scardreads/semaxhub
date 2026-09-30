@@ -5,7 +5,84 @@ import type { Topic, Thread, Reply } from "@/db/schema";
 export type { Topic, Thread, Reply };
 export { isDatabaseConfigured };
 
-export type TopicWithCounts = Topic & { threadCount: number };
+export type TopicActivity = {
+  threadCount: number;
+  replyCount: number;
+  lastActivityAt: Date | null;
+};
+
+export type TopicWithCounts = Topic & TopicActivity;
+
+const EMPTY_ACTIVITY: TopicActivity = {
+  threadCount: 0,
+  replyCount: 0,
+  lastActivityAt: null,
+};
+
+function toDate(value: unknown): Date | null {
+  if (value == null) return null;
+  if (value instanceof Date) {
+    return Number.isNaN(value.getTime()) ? null : value;
+  }
+  if (typeof value === "string" || typeof value === "number") {
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+  }
+  return null;
+}
+
+function laterDate(a: Date | null, b: Date | null): Date | null {
+  if (!a) return b;
+  if (!b) return a;
+  return a.getTime() >= b.getTime() ? a : b;
+}
+
+/** Visible threads, replies on those threads, and the newer of the two timestamps. */
+async function loadTopicActivity(): Promise<Map<string, TopicActivity>> {
+  const db = getDb();
+
+  const threadRows = await db
+    .select({
+      topicId: schema.threads.topicId,
+      threadCount: sql<number>`cast(count(*) as int)`,
+      lastThreadAt: sql<Date | string | null>`max(${schema.threads.createdAt})`,
+    })
+    .from(schema.threads)
+    .where(isNull(schema.threads.hiddenAt))
+    .groupBy(schema.threads.topicId);
+
+  const replyRows = await db
+    .select({
+      topicId: schema.threads.topicId,
+      replyCount: sql<number>`cast(count(${schema.replies.id}) as int)`,
+      lastReplyAt: sql<Date | string | null>`max(${schema.replies.createdAt})`,
+    })
+    .from(schema.replies)
+    .innerJoin(schema.threads, eq(schema.threads.id, schema.replies.threadId))
+    .where(and(isNull(schema.replies.hiddenAt), isNull(schema.threads.hiddenAt)))
+    .groupBy(schema.threads.topicId);
+
+  const map = new Map<string, TopicActivity>();
+
+  for (const row of threadRows) {
+    map.set(row.topicId, {
+      threadCount: Number(row.threadCount) || 0,
+      replyCount: 0,
+      lastActivityAt: toDate(row.lastThreadAt),
+    });
+  }
+
+  for (const row of replyRows) {
+    const prev = map.get(row.topicId) ?? { ...EMPTY_ACTIVITY };
+    map.set(row.topicId, {
+      threadCount: prev.threadCount,
+      replyCount: Number(row.replyCount) || 0,
+      lastActivityAt: laterDate(prev.lastActivityAt, toDate(row.lastReplyAt)),
+    });
+  }
+
+  return map;
+}
 
 export async function listTopics(): Promise<TopicWithCounts[]> {
   const db = getDb();
@@ -14,23 +91,17 @@ export async function listTopics(): Promise<TopicWithCounts[]> {
     .from(schema.topics)
     .orderBy(asc(schema.topics.sortOrder));
 
-  const countRows = await db
-    .select({
-      topicId: schema.threads.topicId,
-      threadCount: sql<number>`cast(count(*) as int)`,
-    })
-    .from(schema.threads)
-    .where(isNull(schema.threads.hiddenAt))
-    .groupBy(schema.threads.topicId);
+  const activity = await loadTopicActivity();
 
-  const countMap = new Map(
-    countRows.map((r) => [r.topicId, Number(r.threadCount)]),
-  );
-
-  return topicRows.map((t) => ({
-    ...t,
-    threadCount: countMap.get(t.id) ?? 0,
+  return topicRows.map((topic) => ({
+    ...topic,
+    ...(activity.get(topic.id) ?? EMPTY_ACTIVITY),
   }));
+}
+
+export async function getTopicActivity(topicId: string): Promise<TopicActivity> {
+  const activity = await loadTopicActivity();
+  return activity.get(topicId) ?? { ...EMPTY_ACTIVITY };
 }
 
 export async function getTopicBySlug(slug: string): Promise<Topic | null> {

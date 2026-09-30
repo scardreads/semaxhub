@@ -203,3 +203,87 @@ footer.site-footer a:hover {
   border-color: var(--muted);
   background: var(--accent-soft);
 }
+
+/* Discuss rooms: white shelf, colored spine, icon tile. Text stays ink. */
+.topic-room.surface {
+  --topic-spine: var(--muted);
+  --topic-tile: var(--accent-soft);
+  --topic-ink: var(--ink);
+  display: flex;
+  align-items: stretch;
+  padding: 0;
+  border-left-width: 5px;
+  border-left-color: var(--topic-spine);
+  color: inherit;
+  text-decoration: none;
+}
+
+a.topic-room.surface {
+  transition: border-color 160ms ease;
+}
+
+a.topic-room.surface:hover {
+  border-top-color: #b8b8be;
+  border-right-color: #b8b8be;
+  border-bottom-color: #b8b8be;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.topic-room.surface {
+    transition: none;
+  }
+}
+
+.topic-room-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+  padding: 14px 16px 14px 14px;
+}
+
+.topic-room-banner .topic-room-body {
+  gap: 14px;
+  padding: 18px 18px 18px 16px;
+}
+
+.topic-room-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-top: 1px;
+  flex: none;
+  border-radius: 8px;
+  background: var(--topic-tile);
+  color: var(--topic-ink);
+}
+
+.topic-room-banner .topic-room-icon {
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
+}
+
+.topic-room-icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.topic-room-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.topic-activity {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.topic-room-banner .topic-activity {
+  margin-top: 12px;
+}
