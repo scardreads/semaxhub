@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { topicVisual } from "@/lib/topic-visuals";
-import { TopicIcon } from "./TopicIcon";
+import { TopicMark } from "./TopicMark";
 
 type TopicRoomStyle = CSSProperties & {
   "--topic-spine": string;
@@ -31,9 +31,7 @@ export function TopicRoomFrame({
   }`;
   const inner = (
     <div className="topic-room-body">
-      <span className="topic-room-icon" aria-hidden="true">
-        <TopicIcon name={visual.icon} />
-      </span>
+      <TopicMark slug={slug} className="topic-room-icon" />
       <div className="topic-room-copy">{children}</div>
     </div>
   );

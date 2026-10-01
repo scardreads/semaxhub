@@ -248,28 +248,31 @@ a.topic-room.surface:hover {
   padding: 18px 18px 18px 16px;
 }
 
-.topic-room-icon {
+.topic-mark {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  margin-top: 1px;
   flex: none;
   border-radius: 8px;
   background: var(--topic-tile);
   color: var(--topic-ink);
 }
 
+.topic-mark svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.topic-room-icon {
+  width: 36px;
+  height: 36px;
+  margin-top: 1px;
+}
+
 .topic-room-banner .topic-room-icon {
   width: 40px;
   height: 40px;
   margin-top: 4px;
-}
-
-.topic-room-icon svg {
-  display: block;
-  width: 20px;
-  height: 20px;
 }
 
 .topic-room-copy {

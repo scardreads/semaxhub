@@ -181,6 +181,7 @@ export type HomeDiscussModule =
       id: string;
       title: string;
       href: string;
+      topicSlug: string;
       authorDisplayName: string;
       authorImageUrl: string | null;
       createdAt: Date;
@@ -192,6 +193,7 @@ export type HomeDiscussModule =
       id: string;
       title: string;
       href: string;
+      topicSlug: string;
       description: string;
     };
 
@@ -255,6 +257,7 @@ export async function listHomeDiscussModules(
         id: row.id,
         title: row.title,
         href: `/discuss/${row.topicSlug}/${row.id}`,
+        topicSlug: row.topicSlug,
         authorDisplayName: row.authorDisplayName,
         authorImageUrl: row.authorImageUrl,
         createdAt: row.createdAt,
@@ -285,6 +288,7 @@ export async function listHomeDiscussModules(
           id: topic.id,
           title: topic.title,
           href: `/discuss/${topic.slug}`,
+          topicSlug: topic.slug,
           description: topic.description,
         });
       }
