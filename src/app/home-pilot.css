@@ -418,6 +418,40 @@
   height: 16px;
 }
 
+.home-learn-mark {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 10px;
+  border-radius: 7px;
+}
+
+.home-read-card .home-learn-mark svg {
+  width: 16px;
+  height: 16px;
+}
+
+.learn-guide-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.learn-guide-mark {
+  width: 40px;
+  height: 40px;
+  margin-top: 1px;
+}
+
+.learn-guide-card .learn-guide-mark svg {
+  width: 22px;
+  height: 22px;
+}
+
+.learn-guide-copy {
+  min-width: 0;
+  flex: 1;
+}
+
 .home-discuss-grid {
   display: grid;
   gap: 16px;
