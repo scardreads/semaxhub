@@ -142,6 +142,7 @@ export default async function TopicPage({
                       targetType="thread"
                       targetId={thread.id}
                       signedIn={signedIn}
+                      align="end"
                     />
                     <AdminHideButton
                       targetType="thread"
