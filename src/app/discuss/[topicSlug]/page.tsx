@@ -19,6 +19,7 @@ import {
   isDatabaseConfigured,
   listThreadsForTopic,
 } from "@/lib/discuss";
+import { DISCUSS_DESCRIPTION } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -28,12 +29,15 @@ export async function generateMetadata({
   params: Promise<{ topicSlug: string }>;
 }): Promise<Metadata> {
   const { topicSlug } = await params;
-  if (!isDatabaseConfigured()) return { title: "Discuss" };
+  if (!isDatabaseConfigured()) {
+    return { title: "Discuss", description: DISCUSS_DESCRIPTION };
+  }
   try {
     const topic = await getTopicBySlug(topicSlug);
-    return { title: topic ? topic.title : "Topic" };
+    if (!topic) return { title: "Topic" };
+    return { title: topic.title, description: topic.description };
   } catch {
-    return { title: "Discuss" };
+    return { title: "Discuss", description: DISCUSS_DESCRIPTION };
   }
 }
 

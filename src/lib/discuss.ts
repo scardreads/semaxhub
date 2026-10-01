@@ -114,6 +114,43 @@ export async function getTopicBySlug(slug: string): Promise<Topic | null> {
   return rows[0] ?? null;
 }
 
+export type PublicThreadSitemapEntry = {
+  id: string;
+  topicSlug: string;
+  lastModified: Date;
+};
+
+/** Visible threads only. Hidden threads stay out of the sitemap. */
+export async function listPublicThreadsForSitemap(): Promise<
+  PublicThreadSitemapEntry[]
+> {
+  const db = getDb();
+  const rows = await db
+    .select({
+      id: schema.threads.id,
+      topicSlug: schema.topics.slug,
+      createdAt: schema.threads.createdAt,
+      lastReplyAt: sql<Date | string | null>`max(${schema.replies.createdAt})`,
+    })
+    .from(schema.threads)
+    .innerJoin(schema.topics, eq(schema.topics.id, schema.threads.topicId))
+    .leftJoin(
+      schema.replies,
+      and(
+        eq(schema.replies.threadId, schema.threads.id),
+        isNull(schema.replies.hiddenAt),
+      ),
+    )
+    .where(isNull(schema.threads.hiddenAt))
+    .groupBy(schema.threads.id, schema.topics.slug, schema.threads.createdAt);
+
+  return rows.map((row) => ({
+    id: row.id,
+    topicSlug: row.topicSlug,
+    lastModified: laterDate(row.createdAt, toDate(row.lastReplyAt)) ?? row.createdAt,
+  }));
+}
+
 export async function listThreadsForTopic(
   topicId: string,
   opts: { includeHidden?: boolean } = {},
