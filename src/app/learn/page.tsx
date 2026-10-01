@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { LearnGuideCard } from "@/components/learn/LearnGuideCard";
 import { teachPages } from "@/lib/nav";
 
 export const metadata: Metadata = {
@@ -21,10 +21,13 @@ export default function LearnIndexPage() {
 
       <div className="home-grid mt-8">
         {teachPages.map((page) => (
-          <Link key={page.href} href={page.href} className="home-read-card">
-            <h2 className="home-read-title">{page.title}</h2>
-            <p className="home-read-blurb">{page.blurb}</p>
-          </Link>
+          <LearnGuideCard
+            key={page.href}
+            href={page.href}
+            title={page.title}
+            blurb={page.blurb}
+            variant="full"
+          />
         ))}
       </div>
     </div>

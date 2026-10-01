@@ -2,6 +2,7 @@ import Link from "next/link";
 import { listHomeDiscussModules } from "@/lib/discuss";
 import { AuthorAvatar } from "@/components/discuss/AuthorAvatar";
 import { TopicMark } from "@/components/discuss/TopicMark";
+import { LearnGuideCard } from "@/components/learn/LearnGuideCard";
 import { homeLearnPages } from "@/lib/nav";
 
 export const dynamic = "force-dynamic";
@@ -67,10 +68,13 @@ export default async function HomePage() {
         </div>
         <div className="home-grid">
           {homeLearnPages.map((page) => (
-            <Link key={page.href} href={page.href} className="home-read-card">
-              <h3 className="home-read-title">{page.title}</h3>
-              <p className="home-read-blurb">{page.blurb}</p>
-            </Link>
+            <LearnGuideCard
+              key={page.href}
+              href={page.href}
+              title={page.title}
+              blurb={page.blurb}
+              variant="light"
+            />
           ))}
         </div>
       </section>
