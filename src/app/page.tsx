@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { listHomeDiscussModules } from "@/lib/discuss";
 import { AuthorAvatar } from "@/components/discuss/AuthorAvatar";
+import { TopicMark } from "@/components/discuss/TopicMark";
 import { homeLearnPages } from "@/lib/nav";
 
 export const dynamic = "force-dynamic";
@@ -100,9 +101,12 @@ export default async function HomePage() {
             {modules.map((item) =>
               item.kind === "thread" ? (
                 <Link key={item.id} href={item.href} className="home-read-card">
-                  <p className="home-thread-kicker">
-                    {item.source === "popular" ? "Popular" : "Recent"}
-                  </p>
+                  <div className="home-discuss-mark-row">
+                    <TopicMark slug={item.topicSlug} className="home-topic-mark" />
+                    <p className="home-thread-kicker">
+                      {item.source === "popular" ? "Popular" : "Recent"}
+                    </p>
+                  </div>
                   <h3 className="home-read-title">{item.title}</h3>
                   <p className="home-read-blurb flex items-center gap-2">
                     <AuthorAvatar
@@ -119,7 +123,10 @@ export default async function HomePage() {
                 </Link>
               ) : (
                 <Link key={item.id} href={item.href} className="home-read-card">
-                  <p className="home-thread-kicker">Topic</p>
+                  <div className="home-discuss-mark-row">
+                    <TopicMark slug={item.topicSlug} className="home-topic-mark" />
+                    <p className="home-thread-kicker">Topic</p>
+                  </div>
                   <h3 className="home-read-title">{item.title}</h3>
                   <p className="home-read-blurb">{item.description}</p>
                 </Link>

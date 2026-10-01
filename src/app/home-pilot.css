@@ -396,6 +396,28 @@
   color: #6e6e73;
 }
 
+.home-discuss-mark-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.home-discuss-mark-row .home-thread-kicker {
+  margin: 0;
+}
+
+.home-topic-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+}
+
+.home-discuss-mark-row .home-topic-mark svg {
+  width: 16px;
+  height: 16px;
+}
+
 .home-discuss-grid {
   display: grid;
   gap: 16px;
