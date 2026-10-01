@@ -125,10 +125,10 @@ export default async function TopicPage({
                 key={thread.id}
                 className="surface px-4 py-3"
               >
-                <div className="flex flex-wrap items-start justify-between gap-2">
+                <div className="flex items-start gap-3">
                   <Link
                     href={`/discuss/${topic.slug}/${thread.id}`}
-                    className="text-xl font-semibold text-ink hover:text-accent"
+                    className="min-w-0 flex-1 break-words text-xl font-semibold text-ink hover:text-accent"
                   >
                     {thread.title}
                     {thread.hiddenAt ? (
@@ -137,21 +137,23 @@ export default async function TopicPage({
                       </span>
                     ) : null}
                   </Link>
-                  <div className="flex items-center gap-3">
-                    <ReportButton
-                      targetType="thread"
-                      targetId={thread.id}
-                      signedIn={signedIn}
-                      align="end"
-                    />
-                    <AdminHideButton
-                      targetType="thread"
-                      targetId={thread.id}
-                      topicSlug={topic.slug}
-                      isHidden={Boolean(thread.hiddenAt)}
-                      isAdminUser={admin}
-                    />
-                  </div>
+                  {signedIn || admin ? (
+                    <div className="flex shrink-0 items-center gap-3 pt-1">
+                      <ReportButton
+                        targetType="thread"
+                        targetId={thread.id}
+                        signedIn={signedIn}
+                        align="end"
+                      />
+                      <AdminHideButton
+                        targetType="thread"
+                        targetId={thread.id}
+                        topicSlug={topic.slug}
+                        isHidden={Boolean(thread.hiddenAt)}
+                        isAdminUser={admin}
+                      />
+                    </div>
+                  ) : null}
                 </div>
                 <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">
                   {thread.body}
