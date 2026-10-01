@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { listHomeDiscussModules } from "@/lib/discuss";
 import { AuthorAvatar } from "@/components/discuss/AuthorAvatar";
 import { TopicMark } from "@/components/discuss/TopicMark";
 import { LearnGuideCard } from "@/components/learn/LearnGuideCard";
 import { homeLearnPages } from "@/lib/nav";
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: { absolute: SITE_TITLE },
+  description: SITE_DESCRIPTION,
+};
 
 export const dynamic = "force-dynamic";
 

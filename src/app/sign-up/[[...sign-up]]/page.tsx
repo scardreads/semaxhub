@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ClerkSignUp } from "@/components/ClerkSignUp";
 
-export const metadata: Metadata = { title: "Sign up" };
+export const metadata: Metadata = {
+  title: "Sign up",
+  robots: { index: false, follow: false },
+};
 export const dynamic = "force-dynamic";
 
 export default function SignUpPage() {

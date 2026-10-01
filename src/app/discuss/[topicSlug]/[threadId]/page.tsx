@@ -15,6 +15,8 @@ import {
   isDatabaseConfigured,
   listRepliesForThread,
 } from "@/lib/discuss";
+import { metaExcerpt } from "@/lib/seo";
+import { DISCUSS_DESCRIPTION } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -24,12 +26,19 @@ export async function generateMetadata({
   params: Promise<{ topicSlug: string; threadId: string }>;
 }): Promise<Metadata> {
   const { threadId } = await params;
-  if (!isDatabaseConfigured()) return { title: "Thread" };
+  if (!isDatabaseConfigured()) {
+    return { title: "Thread", description: DISCUSS_DESCRIPTION };
+  }
   try {
-    const thread = await getThreadById(threadId, { includeHidden: true });
-    return { title: thread ? thread.title : "Thread" };
+    // Hidden threads 404 for readers. Do not publish their titles.
+    const thread = await getThreadById(threadId, { includeHidden: false });
+    if (!thread) return { title: "Thread" };
+    const description =
+      metaExcerpt(thread.body) ||
+      `Discussion in ${thread.topicTitle} on Semax Hub.`;
+    return { title: thread.title, description };
   } catch {
-    return { title: "Thread" };
+    return { title: "Thread", description: DISCUSS_DESCRIPTION };
   }
 }
 

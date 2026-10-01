@@ -4,11 +4,11 @@ import { DbMissingBanner } from "@/components/discuss/DbMissingBanner";
 import { TopicActivityLine } from "@/components/discuss/TopicActivityLine";
 import { TopicRoomFrame } from "@/components/discuss/TopicRoomFrame";
 import { isDatabaseConfigured, listTopics } from "@/lib/discuss";
+import { DISCUSS_DESCRIPTION } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Discuss",
-  description:
-    "A reading-room for questions and peer talk about Semax. Anyone can read; sign in to post.",
+  description: DISCUSS_DESCRIPTION,
 };
 
 export const dynamic = "force-dynamic";

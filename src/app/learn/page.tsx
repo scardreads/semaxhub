@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { LearnGuideCard } from "@/components/learn/LearnGuideCard";
 import { teachPages } from "@/lib/nav";
+import { LEARN_DESCRIPTION } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Learn",
-  description:
-    "Clear, sourced guides on what Semax is, where it came from, and what the research says.",
+  description: LEARN_DESCRIPTION,
 };
 
 export default function LearnIndexPage() {

@@ -9,6 +9,8 @@ Promise: Curious. Sourced. Never a shop.
 - https://semaxhub-brown.vercel.app
 - Older alias: https://semaxhub-ilya-nikolayevs-projects.vercel.app
 
+Canonicals, the sitemap, `robots.txt`, JSON-LD, and `/llms.txt` use that host unless `NEXT_PUBLIC_SITE_URL` is set to another production origin. Pages are indexable only when `VERCEL_ENV=production`. Preview deployments are `noindex` and their `robots.txt` disallows crawling. The sitemap includes public Discuss rooms, and public threads when the database is reachable. Hidden threads, `/sign-in`, and `/sign-up` are excluded.
+
 ## Stack
 
 - Next.js App Router

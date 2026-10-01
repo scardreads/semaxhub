@@ -1,8 +1,17 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import { AppClerkProvider } from "@/components/ClerkProvider";
+import { JsonLd } from "@/components/JsonLd";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { websiteJsonLd } from "@/lib/seo";
+import {
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TITLE,
+  getSiteUrl,
+  isIndexableDeployment,
+} from "@/lib/site";
 import "./globals.css";
 
 const mono = JetBrains_Mono({
@@ -11,12 +20,28 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
   title: {
-    default: "Semax Hub | Semax, the definitive resource",
-    template: "%s | Semax Hub",
+    default: SITE_TITLE,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "Semax Hub is the place for sourced knowledge and discussion on the peptide known as the \"KGB brain spray\" and the \"Limitless peptide.\" Learn what it is, what the research says and, through discussion, exchange knowledge with like-minded people.",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  alternates: {
+    canonical: "./",
+  },
+  robots: isIndexableDeployment()
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "en_US",
+    url: "./",
+  },
+  twitter: {
+    card: "summary",
+  },
 };
 
 export default function RootLayout({
@@ -27,6 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${mono.variable} antialiased`}>
+        <JsonLd data={websiteJsonLd()} />
         <AppClerkProvider>
           <SiteHeader />
           <main className="min-h-[70vh]">{children}</main>
