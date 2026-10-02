@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { PageShell } from "@/components/PageShell";
 import {
-  LEGAL_EFFECTIVE_DATE,
   LegalContact,
   LegalLink,
   LegalSection,
@@ -10,7 +9,7 @@ import {
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "What Semax Hub collects for accounts and Discuss, and what it does not. Informational site. Not medical advice.",
+    "What Semax Hub collects for accounts, Discuss, and site measurement. Informational site. Not medical advice.",
 };
 
 export default function PrivacyPage() {
@@ -20,14 +19,15 @@ export default function PrivacyPage() {
       title="Privacy Policy"
       lede="What this informational site collects, why, and who else handles it."
     >
-      <p className="text-sm text-muted">Effective {LEGAL_EFFECTIVE_DATE}</p>
+      <p className="text-sm text-muted">Effective October 2, 2026</p>
 
       <div className="mt-6 space-y-4 text-lg leading-relaxed text-ink/85">
         <p>
           Semax Hub is a free educational site about the peptide Semax.
           Informational only. Not medical advice. We don&apos;t sell Semax. This
           policy describes the data the site actually handles: optional accounts,
-          posts in Discuss, and the ordinary records a host keeps to serve pages.
+          posts in Discuss, site measurement, and the ordinary records a host
+          keeps to serve pages.
         </p>
         <p>
           The rules for using the site are in the{" "}
@@ -88,14 +88,14 @@ export default function PrivacyPage() {
           The site is hosted on Vercel. Serving a page means the host receives
           ordinary connection data, such as your IP address, browser type, and
           the page you requested, in server logs. We use that to deliver the
-          site and keep it available. We do not run a separate analytics product
-          on top of those logs.
+          site and keep it available.
         </p>
         <p>
-          This app does not include Vercel Analytics, Vercel Speed Insights,
-          Google Analytics, or another analytics or advertising script. There is
-          no cookie banner, because the site does not add its own tracking
-          cookies.
+          We use Google Analytics 4 to measure traffic and page views. The site
+          loads Google&apos;s gtag script for that. We use it for measurement
+          only. We do not use it for ads or remarketing. The app does not
+          include Vercel Analytics, Vercel Speed Insights, or an advertising
+          script.
         </p>
       </LegalSection>
 
@@ -105,6 +105,12 @@ export default function PrivacyPage() {
           can work. Clerk sets cookies to keep you signed in and to run the
           sign-in and sign-up screens. Those cookies are for the account
           session, not for ads.
+        </p>
+        <p>
+          Google Analytics may set cookies named &quot;_ga&quot; and
+          &quot;_ga_*&quot; so it can count visits and page views. Those cookies
+          are for measurement, not for ads or remarketing on our side. The site
+          does not show a cookie banner.
         </p>
         <p>
           You can block cookies in your browser. Sign-in and posting will not
@@ -119,10 +125,12 @@ export default function PrivacyPage() {
           <li>To publish the threads and replies you submit.</li>
           <li>To store reports and let moderators hide posts that break the rules.</li>
           <li>To operate, secure, and host the site.</li>
+          <li>To measure traffic and page views with Google Analytics 4.</li>
         </ul>
         <p>
-          We do not sell personal information. We do not use it for advertising.
-          We do not use it to sell Semax or to give medical advice.
+          We do not sell personal information. We do not use it for advertising
+          or remarketing. We do not use it to sell Semax or to give medical
+          advice.
         </p>
       </LegalSection>
 
@@ -142,6 +150,16 @@ export default function PrivacyPage() {
             </LegalLink>
             . If your avatar image is hosted by Google, your browser loads that
             image from Google when a page shows it.
+          </li>
+          <li>
+            Google Analytics 4, run by Google, in addition to Clerk for sign-in.
+            When the gtag script loads, Google processes measurement data such
+            as traffic and page views. We use that for measurement only, not
+            for ads or remarketing. Google&apos;s policy is at{" "}
+            <LegalLink href="https://policies.google.com/privacy">
+              policies.google.com/privacy
+            </LegalLink>
+            .
           </li>
           <li>
             <LegalLink href="https://vercel.com/legal/privacy-policy">
@@ -188,10 +206,11 @@ export default function PrivacyPage() {
       <LegalSection title="Your choices">
         <p>
           You can read without an account. You can choose not to sign in, not to
-          post, and not to use Google. Blocking Clerk cookies will sign you out
-          and stop posting. Because we have not published a contact address,
-          there is no in-site form for access or deletion requests. See Contact
-          below.
+          post, and not to use Google to sign in. Blocking cookies will sign
+          you out and stop posting, and it can stop Google Analytics from
+          storing its cookies. The measurement script still loads with the
+          site. Because we have not published a contact address, there is no
+          in-site form for access or deletion requests. See Contact below.
         </p>
       </LegalSection>
 
