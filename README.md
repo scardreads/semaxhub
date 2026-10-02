@@ -46,6 +46,10 @@ See [docs/DISCUSS.md](docs/DISCUSS.md) for the full env checklist (Clerk + Postg
 
 Set `DATABASE_URL` (or Neon/Vercel `POSTGRES_*` aliases) on Vercel Production + Preview, then redeploy. Migrate/seed already ran against prod Postgres.
 
+## Analytics
+
+Google Analytics 4 (`gtag.js`) loads from the root layout. Set `NEXT_PUBLIC_GA_MEASUREMENT_ID` to override the ID (the public property is `G-78DELVNFMX`). On the Vercel production deployment, an unset variable uses that ID. Preview and local dev do not load the tag unless the variable is set. Set it to an empty value to turn the tag off in any environment, including production.
+
 ## Notes
 
 - No cart, pricing, buy CTAs, affiliate links, or storefront patterns.
