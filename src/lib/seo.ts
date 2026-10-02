@@ -150,13 +150,43 @@ export function robotsDocument(): MetadataRoute.Robots {
 export type SitemapThread = {
   id: string;
   topicSlug: string;
-  lastModified: Date;
+  lastModified?: Date | string | null;
 };
 
 export type SitemapTopic = {
   slug: string;
-  lastModified: Date | null;
+  lastModified?: Date | string | null;
 };
+
+/**
+ * ISO-8601 timestamp for a sitemap `<lastmod>`, or undefined when the value
+ * is missing or not a real date. Next serializes `Date` via `toISOString()`
+ * after the sitemap function returns; an Invalid Date throws there and 500s
+ * the whole document. Strings are passed through only after we parse them.
+ */
+export function sitemapLastModified(value: unknown): string | undefined {
+  try {
+    if (value == null || value === "") return undefined;
+    const date =
+      value instanceof Date
+        ? value
+        : typeof value === "string" || typeof value === "number"
+          ? new Date(value)
+          : null;
+    if (!date || Number.isNaN(date.getTime())) return undefined;
+    return date.toISOString();
+  } catch {
+    return undefined;
+  }
+}
+
+function sitemapSegment(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const segment = value.trim();
+  if (!segment || segment.includes("/") || segment.includes("..")) return null;
+  if (/[\s<>&"'?#]/.test(segment)) return null;
+  return segment;
+}
 
 export function staticSitemapEntries(): MetadataRoute.Sitemap {
   const paths = [
@@ -176,30 +206,71 @@ export function staticSitemapEntries(): MetadataRoute.Sitemap {
   }));
 }
 
-export function discussSitemapEntries(
-  topics: SitemapTopic[] | null,
-  threads: SitemapThread[],
-): MetadataRoute.Sitemap {
+function fallbackRoomEntries(): MetadataRoute.Sitemap {
+  return DISCUSS_ROOMS.map((room) => ({
+    url: absoluteUrl(`/discuss/${room.slug}`),
+    changeFrequency: "daily",
+    priority: 0.5,
+  }));
+}
+
+function roomSitemapEntries(topics: SitemapTopic[] | null): MetadataRoute.Sitemap {
   const rooms =
     topics && topics.length > 0
       ? topics
       : DISCUSS_ROOMS.map((room) => ({ slug: room.slug, lastModified: null }));
 
-  const roomEntries: MetadataRoute.Sitemap = rooms.map((room) => ({
-    url: absoluteUrl(`/discuss/${room.slug}`),
-    changeFrequency: "daily",
-    priority: 0.5,
-    ...(room.lastModified ? { lastModified: room.lastModified } : {}),
-  }));
+  const entries: MetadataRoute.Sitemap = [];
+  for (const room of rooms) {
+    try {
+      const slug = sitemapSegment(room?.slug);
+      if (!slug) continue;
+      const lastModified = sitemapLastModified(room.lastModified);
+      entries.push({
+        url: absoluteUrl(`/discuss/${slug}`),
+        changeFrequency: "daily",
+        priority: 0.5,
+        ...(lastModified ? { lastModified } : {}),
+      });
+    } catch {
+      continue;
+    }
+  }
 
-  const threadEntries: MetadataRoute.Sitemap = threads.map((thread) => ({
-    url: absoluteUrl(`/discuss/${thread.topicSlug}/${thread.id}`),
-    lastModified: thread.lastModified,
-    changeFrequency: "weekly",
-    priority: 0.4,
-  }));
+  return entries.length > 0 ? entries : fallbackRoomEntries();
+}
 
-  return [...roomEntries, ...threadEntries];
+function threadSitemapEntries(threads: SitemapThread[] | null | undefined): MetadataRoute.Sitemap {
+  if (!Array.isArray(threads)) return [];
+  const entries: MetadataRoute.Sitemap = [];
+  for (const thread of threads) {
+    try {
+      const topicSlug = sitemapSegment(thread?.topicSlug);
+      const id = sitemapSegment(thread?.id);
+      if (!topicSlug || !id) continue;
+      const lastModified = sitemapLastModified(thread.lastModified);
+      entries.push({
+        url: absoluteUrl(`/discuss/${topicSlug}/${id}`),
+        changeFrequency: "weekly",
+        priority: 0.4,
+        ...(lastModified ? { lastModified } : {}),
+      });
+    } catch {
+      continue;
+    }
+  }
+  return entries;
+}
+
+export function discussSitemapEntries(
+  topics: SitemapTopic[] | null,
+  threads: SitemapThread[] | null | undefined,
+): MetadataRoute.Sitemap {
+  try {
+    return [...roomSitemapEntries(topics), ...threadSitemapEntries(threads)];
+  } catch {
+    return fallbackRoomEntries();
+  }
 }
 
 export function llmsTxt(topics: { title: string; slug: string; description: string }[]): string {

@@ -20,21 +20,38 @@ const EMPTY_ACTIVITY: TopicActivity = {
 };
 
 function toDate(value: unknown): Date | null {
-  if (value == null) return null;
-  if (value instanceof Date) {
-    return Number.isNaN(value.getTime()) ? null : value;
+  try {
+    if (value == null || value === "") return null;
+    if (value instanceof Date) {
+      return Number.isNaN(value.getTime()) ? null : value;
+    }
+    if (typeof value === "string" || typeof value === "number") {
+      const parsed = new Date(value);
+      return Number.isNaN(parsed.getTime()) ? null : parsed;
+    }
+    return null;
+  } catch {
+    return null;
   }
-  if (typeof value === "string" || typeof value === "number") {
-    const parsed = new Date(value);
-    return Number.isNaN(parsed.getTime()) ? null : parsed;
-  }
-  return null;
 }
 
-function laterDate(a: Date | null, b: Date | null): Date | null {
-  if (!a) return b;
-  if (!b) return a;
-  return a.getTime() >= b.getTime() ? a : b;
+function laterDate(a: unknown, b: unknown): Date | null {
+  const left = toDate(a);
+  const right = toDate(b);
+  if (!left) return right;
+  if (!right) return left;
+  return left.getTime() >= right.getTime() ? left : right;
+}
+
+/**
+ * Newer of the thread timestamp and the latest visible reply.
+ * Drizzle/postgres may hand back a Date or a timestamp string. Never throws.
+ */
+export function publicThreadSitemapLastModified(
+  createdAt: unknown,
+  lastReplyAt: unknown,
+): Date | null {
+  return laterDate(createdAt, lastReplyAt);
 }
 
 /** Visible threads, replies on those threads, and the newer of the two timestamps. */
@@ -117,7 +134,7 @@ export async function getTopicBySlug(slug: string): Promise<Topic | null> {
 export type PublicThreadSitemapEntry = {
   id: string;
   topicSlug: string;
-  lastModified: Date;
+  lastModified: Date | null;
 };
 
 /** Visible threads only. Hidden threads stay out of the sitemap. */
@@ -144,11 +161,20 @@ export async function listPublicThreadsForSitemap(): Promise<
     .where(isNull(schema.threads.hiddenAt))
     .groupBy(schema.threads.id, schema.topics.slug, schema.threads.createdAt);
 
-  return rows.map((row) => ({
-    id: row.id,
-    topicSlug: row.topicSlug,
-    lastModified: laterDate(row.createdAt, toDate(row.lastReplyAt)) ?? row.createdAt,
-  }));
+  return rows.flatMap((row) => {
+    try {
+      if (typeof row.id !== "string" || typeof row.topicSlug !== "string") return [];
+      return [
+        {
+          id: row.id,
+          topicSlug: row.topicSlug,
+          lastModified: publicThreadSitemapLastModified(row.createdAt, row.lastReplyAt),
+        },
+      ];
+    } catch {
+      return [];
+    }
+  });
 }
 
 export async function listThreadsForTopic(
