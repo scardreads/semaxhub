@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { safeDecodedPathname } from "./decode-pathname";
 import { publicThreadSitemapLastModified } from "./discuss";
+import { renderSitemapXml } from "./sitemap-document";
 import {
   discussSitemapEntries,
   sitemapLastModified,
@@ -112,6 +114,41 @@ test("null topics fall back to every seeded room", () => {
   for (const room of DISCUSS_ROOMS) {
     assert.ok(entries.some((entry) => entry.url.endsWith(`/discuss/${room.slug}`)));
   }
+});
+
+test("percent-encoded /sitemap.xml decodes to the canonical path", () => {
+  assert.equal(safeDecodedPathname("/%73itemap.xml"), "/sitemap.xml");
+  assert.equal(safeDecodedPathname("/sitemap%2Exml"), "/sitemap.xml");
+  assert.equal(safeDecodedPathname("/sitemap%2exml"), "/sitemap.xml");
+  assert.equal(safeDecodedPathname("/site%6dap.xml"), "/sitemap.xml");
+  assert.equal(safeDecodedPathname("/%2573itemap.xml"), "/sitemap.xml");
+  assert.equal(safeDecodedPathname("/sitemap.xml"), null);
+  assert.equal(safeDecodedPathname("/%2e%2e/sitemap.xml"), null);
+  assert.equal(safeDecodedPathname("/%"), null);
+  assert.equal(safeDecodedPathname("/foo%00bar"), null);
+});
+
+test("our sitemap renderer stays valid XML when Next's serializer would throw", () => {
+  const xml = renderSitemapXml([
+    ...staticSitemapEntries(),
+    ...discussSitemapEntries(
+      [{ slug: "dosing-schedules", lastModified: new Date("nope") }],
+      [
+        {
+          id: "1289a578-b32c-4bb6-bddd-2bfea6bd0454",
+          topicSlug: "dosing-schedules",
+          lastModified: new Date("nope"),
+        },
+      ],
+    ),
+    { url: "https://semaxhub-brown.vercel.app/discuss/a&b", lastModified: new Date("nope") },
+  ]);
+
+  assert.match(xml, /^<\?xml version="1.0" encoding="UTF-8"\?>/);
+  assert.match(xml, /<loc>https:\/\/semaxhub-brown\.vercel\.app\/discuss\/dosing-schedules<\/loc>/);
+  assert.match(xml, /<loc>https:\/\/semaxhub-brown\.vercel\.app\/discuss\/a&amp;b<\/loc>/);
+  assert.equal(xml.includes("<lastmod>"), false);
+  assert.equal(xml.includes("Invalid"), false);
 });
 
 test("Next sitemap serializer accepts our entries and rejects an Invalid Date", async () => {

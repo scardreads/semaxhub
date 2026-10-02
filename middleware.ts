@@ -1,7 +1,8 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { clerkMiddlewareProxyUrl } from "@/lib/clerk-proxy";
+import { safeDecodedPathname } from "@/lib/decode-pathname";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import type { NextFetchEvent, NextRequest } from "next/server";
 
 const isProtectedAction = createRouteMatcher([]);
 
@@ -10,7 +11,7 @@ const clerkConfigured = Boolean(
     process.env.CLERK_SECRET_KEY,
 );
 
-const middleware = clerkConfigured
+const middlewareHandler = clerkConfigured
   ? clerkMiddleware(
       async (auth, req) => {
         // Public read; posting gated in Server Actions via auth().
@@ -24,7 +25,18 @@ const middleware = clerkConfigured
       return NextResponse.next();
     };
 
-export default middleware;
+export default function middleware(req: NextRequest, event: NextFetchEvent) {
+  // Vercel returns 500 for this dynamic route when any character in
+  // `/sitemap.xml` is percent-encoded (`/sitemap%2Exml`, `/%73itemap.xml`).
+  // The decoded path is the same document. Rewrite before Clerk runs.
+  const decoded = safeDecodedPathname(req.nextUrl.pathname);
+  if (decoded === "/sitemap.xml") {
+    const url = req.nextUrl.clone();
+    url.pathname = decoded;
+    return NextResponse.rewrite(url);
+  }
+  return middlewareHandler(req, event);
+}
 
 export const config = {
   matcher: [
