@@ -18,7 +18,11 @@ const middleware = clerkConfigured
           await auth.protect();
         }
       },
-      { frontendApiProxy: { enabled: true }, proxyUrl: clerkMiddlewareProxyUrl() },
+      {
+        frontendApiProxy: { enabled: true },
+        proxyUrl: clerkMiddlewareProxyUrl(),
+        authorizedParties: ["https://semaxhub.com"],
+      },
     )
   : function passthrough(_req: NextRequest) {
       return NextResponse.next();
