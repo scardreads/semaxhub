@@ -2,15 +2,16 @@
  * Canonical host for Semax Hub.
  *
  * `NEXT_PUBLIC_SITE_URL` may override this (origin only, no trailing slash).
- * Leave it unset, or set it to the production origin on every Vercel
- * environment. Do not point it at a preview deployment: canonicals, the
- * sitemap, robots, JSON-LD, and llms.txt all use this host.
+ * Leave it unset to use https://semaxhub.com, or set it to that production
+ * origin on every Vercel environment. Do not point it at a preview
+ * deployment: canonicals, the sitemap, robots, JSON-LD, and llms.txt all
+ * use this host.
  *
  * Indexing follows `VERCEL_ENV`. Production deployments are indexable.
  * Preview (`VERCEL_ENV=preview`) and local builds (unset) are noindex, and
  * their robots.txt disallows crawling. Vercel sets `VERCEL_ENV` per deployment.
  */
-export const PRODUCTION_SITE_URL = "https://semaxhub-brown.vercel.app";
+export const PRODUCTION_SITE_URL = "https://semaxhub.com";
 
 export const SITE_NAME = "Semax Hub";
 

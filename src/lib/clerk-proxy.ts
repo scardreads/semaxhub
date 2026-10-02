@@ -1,13 +1,13 @@
 /** Clerk Frontend API / clerk-js must stay on this origin.
 
-pk_live encodes clerk.semaxhub-brown.vercel.app. That host cannot TLS (nested
-subdomain of vercel.app). An *absolute* proxyUrl makes Clerk build script URLs
-as https://clerk.<host>/npm/... which is the Console failure
-(failed_to_load_clerk_ui / ERR_CONNECTION_CLOSED).
+The publishable key's Frontend API host is not the public site. An *absolute*
+proxyUrl makes Clerk build script URLs as https://clerk.<host>/npm/... which
+fails TLS (failed_to_load_clerk_ui / ERR_CONNECTION_CLOSED). Nested *.vercel.app
+hosts cannot get certificates either.
 
 Client proxyUrl MUST be the relative path /__clerk so clerkJSScriptUrl and
 clerkUIScriptUrl use /__clerk/npm/@clerk/... . Middleware handshake can still
-use an absolute URL.
+use an absolute URL on the canonical host (https://semaxhub.com/__clerk).
 */
 export const CLERK_PROXY_PATH = "/__clerk";
 
@@ -37,7 +37,7 @@ export function clerkUiAssetUrl(): string {
 export function clerkMiddlewareProxyUrl(): string {
   const host = (
     process.env.VERCEL_ENV === "production"
-      ? process.env.VERCEL_PROJECT_PRODUCTION_URL || "semaxhub-brown.vercel.app"
+      ? process.env.VERCEL_PROJECT_PRODUCTION_URL || "semaxhub.com"
       : process.env.VERCEL_URL ||
         process.env.VERCEL_PROJECT_PRODUCTION_URL ||
         ""

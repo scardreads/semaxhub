@@ -139,14 +139,14 @@ test("Next sitemap serializer accepts our entries and rejects an Invalid Date", 
   ];
 
   const xml = resolveRouteData(entries, "sitemap");
-  assert.match(xml, /<loc>https:\/\/semaxhub-brown\.vercel\.app\/discuss\/dosing-schedules<\/loc>/);
+  assert.match(xml, /<loc>https:\/\/semaxhub\.com\/discuss\/dosing-schedules<\/loc>/);
   assert.match(xml, /<lastmod>2026-09-29T20:36:10\.735Z<\/lastmod>/);
   assert.match(xml, /1289a578-b32c-4bb6-bddd-2bfea6bd0454/);
   assert.equal(xml.includes("Invalid"), false);
 
   assert.throws(() =>
     resolveRouteData(
-      [{ url: "https://semaxhub-brown.vercel.app", lastModified: new Date("nope") }],
+      [{ url: "https://semaxhub.com", lastModified: new Date("nope") }],
       "sitemap",
     ),
   );

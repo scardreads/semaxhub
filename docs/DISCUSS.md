@@ -4,8 +4,7 @@ Reading-room discussion. Anyone can read; sign-in required to post or reply. No 
 
 ## Production host
 
-- Primary: https://semaxhub-brown.vercel.app
-- Older alias (still valid if present): https://semaxhub-ilya-nikolayevs-projects.vercel.app
+- Canonical: https://semaxhub.com (apex; `www` is not canonical)
 
 ## Env checklist (Ilya / Vercel)
 
@@ -26,20 +25,20 @@ ADMIN_USER_IDS=                    # optional comma-separated Clerk user IDs
 ```
 
 Client `NEXT_PUBLIC_CLERK_PROXY_URL` must be the **relative** path `/__clerk`.
-An absolute `https://semaxhub-brown.vercel.app/__clerk` makes Clerk load
-`https://clerk.semaxhub-brown.vercel.app/npm/@clerk/clerk-js@5/...` (TLS closed,
+An absolute `https://semaxhub.com/__clerk` makes Clerk load
+`https://clerk.semaxhub.com/npm/@clerk/clerk-js@5/...` (TLS closed,
 `failed_to_load_clerk_ui`). next.config pins `NEXT_PUBLIC_CLERK_JS_URL` and
 `NEXT_PUBLIC_CLERK_UI_URL` to `/__clerk/npm/@clerk/...`. The Dashboard proxy
-URL stays absolute (`https://semaxhub-brown.vercel.app/__clerk`).
+URL stays absolute (`https://semaxhub.com/__clerk`).
 
 After setting `DATABASE_URL` (or a `POSTGRES_*` alias) on Vercel Production + Preview, **redeploy**. Migrate/seed already ran against prod Postgres.
 
 ### Clerk dashboard
 
 1. Enable **Email verification** and **Google OAuth**.
-2. Production domain is **only** `https://semaxhub-brown.vercel.app` (one primary `vercel.app` domain). Do not Change domain to add the ilya-nikolayevs-projects alias.
-3. **Frontend API proxy (required):** Domains → Frontend API → Set proxy configuration to `https://semaxhub-brown.vercel.app/__clerk`. Without this, ClerkJS still calls `clerk.semaxhub-brown.vercel.app` and sign-in shows ClerkFailed.
-4. Do **not** CNAME `clerk.semaxhub-brown.vercel.app` or `accounts.semaxhub-brown.vercel.app`. Nested subdomains of `vercel.app` cannot get TLS. Do not switch v1 to Clerk Account Portal while those hosts are the portal URLs (they TLS-fail). If you want hosted Account Portal later, change it in the Dashboard to the default `*.accounts.dev` URL, not `accounts.*.vercel.app`.
+2. Leave the Clerk primary domain and publishable key unchanged. Do not Change domain. The public canonical origin is **only** `https://semaxhub.com` (apex, not `www`).
+3. **Frontend API proxy (required):** Domains → Frontend API → Set proxy configuration to `https://semaxhub.com/__clerk`. Without this, ClerkJS still calls the Frontend API host from the publishable key and sign-in shows ClerkFailed.
+4. Do **not** CNAME `clerk.*` or `accounts.*` under `vercel.app`. Nested subdomains of `vercel.app` cannot get TLS. Do not switch v1 to Clerk Account Portal while those hosts are the portal URLs (they TLS-fail). If you want hosted Account Portal later, change it in the Dashboard to the default `*.accounts.dev` URL, not `accounts.*.vercel.app`.
 5. Optional admin: set `publicMetadata.role` to `"admin"` on a user, or list IDs in `ADMIN_USER_IDS`.
 
 ### Database
