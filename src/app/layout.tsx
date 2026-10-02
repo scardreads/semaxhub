@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import { AppClerkProvider } from "@/components/ClerkProvider";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { JsonLd } from "@/components/JsonLd";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -52,6 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${mono.variable} antialiased`}>
+        <GoogleAnalytics />
         <JsonLd data={websiteJsonLd()} />
         <AppClerkProvider>
           <SiteHeader />
