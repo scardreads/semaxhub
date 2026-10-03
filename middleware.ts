@@ -1,7 +1,8 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { clerkMiddlewareProxyUrl } from "@/lib/clerk-proxy";
+import { sitemapPathFromEncoded } from "@/lib/decode-pathname";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import type { NextFetchEvent, NextRequest } from "next/server";
 
 const isProtectedAction = createRouteMatcher([]);
 
@@ -10,7 +11,7 @@ const clerkConfigured = Boolean(
     process.env.CLERK_SECRET_KEY,
 );
 
-const middleware = clerkConfigured
+const clerkHandler = clerkConfigured
   ? clerkMiddleware(
       async (auth, req) => {
         // Public read; posting gated in Server Actions via auth().
@@ -24,11 +25,24 @@ const middleware = clerkConfigured
         authorizedParties: ["https://semaxhub.com"],
       },
     )
-  : function passthrough(_req: NextRequest) {
-      return NextResponse.next();
-    };
+  : null;
 
-export default middleware;
+export default function middleware(req: NextRequest, event: NextFetchEvent) {
+  // Vercel answers a percent-encoded dynamic path with the Next 500 page
+  // (`x-matched-path: /500`) after Clerk calls next(). `/sitemap%2Exml` and
+  // `/%73itemap.xml` are the same document as `/sitemap.xml`. Rewrite before
+  // Clerk so the platform invokes that route. Static `/robots.txt` already
+  // survives the same encoding and is left alone.
+  const encodedPath = sitemapPathFromEncoded(req.nextUrl.pathname);
+  if (encodedPath) {
+    const url = req.nextUrl.clone();
+    url.pathname = encodedPath;
+    return NextResponse.rewrite(url);
+  }
+
+  if (!clerkHandler) return NextResponse.next();
+  return clerkHandler(req, event);
+}
 
 export const config = {
   matcher: [
