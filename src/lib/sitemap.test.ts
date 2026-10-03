@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { safeDecodedPathname, sitemapPathFromEncoded } from "./decode-pathname";
 import { publicThreadSitemapLastModified } from "./discuss";
 import {
   discussSitemapEntries,
   sitemapLastModified,
   staticSitemapEntries,
 } from "./seo";
+import { fallbackSitemapEntries, renderSitemapXml } from "./sitemap-document";
 import { DISCUSS_ROOMS } from "./discuss-rooms";
 
 const postgresTimestamp = "2026-09-29 20:36:10.735+00";
@@ -111,6 +113,58 @@ test("null topics fall back to every seeded room", () => {
   const entries = discussSitemapEntries(null, []);
   for (const room of DISCUSS_ROOMS) {
     assert.ok(entries.some((entry) => entry.url.endsWith(`/discuss/${room.slug}`)));
+  }
+});
+
+test("percent-encoded /sitemap.xml decodes to the canonical path", () => {
+  assert.equal(sitemapPathFromEncoded("/%73itemap.xml"), "/sitemap.xml");
+  assert.equal(sitemapPathFromEncoded("/sitemap%2Exml"), "/sitemap.xml");
+  assert.equal(sitemapPathFromEncoded("/sitemap%2exml"), "/sitemap.xml");
+  assert.equal(sitemapPathFromEncoded("/site%6dap.xml"), "/sitemap.xml");
+  assert.equal(sitemapPathFromEncoded("/%2573itemap.xml"), "/sitemap.xml");
+  assert.equal(safeDecodedPathname("/sitemap.xml"), null);
+  assert.equal(sitemapPathFromEncoded("/sitemap.xml"), null);
+  assert.equal(sitemapPathFromEncoded("/%2e%2e/sitemap.xml"), null);
+  assert.equal(sitemapPathFromEncoded("/%2e%2e%2fsitemap.xml"), null);
+  assert.equal(sitemapPathFromEncoded("/%"), null);
+  assert.equal(sitemapPathFromEncoded("/foo%00bar"), null);
+  assert.equal(sitemapPathFromEncoded("/robots%2Etxt"), null);
+  assert.equal(sitemapPathFromEncoded("/%64iscuss"), null);
+});
+
+test("our sitemap renderer stays valid XML when Next's serializer would throw", () => {
+  const xml = renderSitemapXml([
+    ...staticSitemapEntries(),
+    ...discussSitemapEntries(
+      [{ slug: "dosing-schedules", lastModified: new Date("nope") }],
+      [
+        {
+          id: "1289a578-b32c-4bb6-bddd-2bfea6bd0454",
+          topicSlug: "dosing-schedules",
+          lastModified: new Date("nope"),
+        },
+      ],
+    ),
+    { url: "https://semaxhub.com/discuss/a&b", lastModified: new Date("nope") },
+    { url: "javascript:alert(1)" },
+    { url: "not a url" },
+  ]);
+
+  assert.match(xml, /^<\?xml version="1.0" encoding="UTF-8"\?>/);
+  assert.match(xml, /<loc>https:\/\/semaxhub\.com\/discuss\/dosing-schedules<\/loc>/);
+  assert.match(xml, /<loc>https:\/\/semaxhub\.com\/discuss\/a&amp;b<\/loc>/);
+  assert.match(xml, /1289a578-b32c-4bb6-bddd-2bfea6bd0454/);
+  assert.equal(xml.includes("<lastmod>"), false);
+  assert.equal(xml.includes("Invalid"), false);
+  assert.equal(xml.includes("javascript:"), false);
+  assert.equal(xml.includes("not a url"), false);
+
+  const fallback = renderSitemapXml(fallbackSitemapEntries());
+  assert.match(fallback, /<loc>https:\/\/semaxhub\.com<\/loc>/);
+  assert.match(fallback, /<loc>https:\/\/semaxhub\.com\/discuss\/general-questions<\/loc>/);
+  assert.equal(fallback.includes("semaxhub-brown.vercel.app"), false);
+  for (const room of DISCUSS_ROOMS) {
+    assert.match(fallback, new RegExp(`<loc>https://semaxhub\\.com/discuss/${room.slug}</loc>`));
   }
 });
 
