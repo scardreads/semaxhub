@@ -131,6 +131,11 @@ export function sitemapXmlResponse(xml: string): Response {
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
       "Cache-Control": "public, max-age=0, must-revalidate, no-transform",
+      // Already-encoded responses are not compressed again. `identity` keeps
+      // the XML bytes intact for clients that advertise gzip/br and then fail
+      // to decode a compressed sitemap. `no-transform` alone is not enough:
+      // Vercel still attaches `content-encoding: br`.
+      "Content-Encoding": "identity",
       "Content-Length": String(body.byteLength),
     },
   });

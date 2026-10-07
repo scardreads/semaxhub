@@ -262,6 +262,7 @@ test("sitemap response stays identity application/xml for every client profile",
   const direct = sitemapXmlResponse(xml);
   assert.equal(direct.status, 200);
   assert.equal(direct.headers.get("content-type"), "application/xml; charset=utf-8");
+  assert.equal(direct.headers.get("content-encoding"), "identity");
   assert.match(direct.headers.get("cache-control") ?? "", /no-transform/);
   assert.equal(direct.headers.get("content-length"), String(Buffer.byteLength(xml, "utf8")));
   assert.equal(Buffer.from(await direct.arrayBuffer()).toString("utf8"), xml);
@@ -284,6 +285,7 @@ test("sitemap response stays identity application/xml for every client profile",
       );
       const cacheControl = response.headers.get("cache-control") ?? "";
       assert.match(cacheControl, /no-transform/, `${profile.name} ${method}`);
+      assert.equal(response.headers.get("content-encoding"), "identity", `${profile.name} ${method}`);
       const body = Buffer.from(await response.arrayBuffer());
       assert.equal(
         response.headers.get("content-length"),
