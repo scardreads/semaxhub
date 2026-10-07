@@ -257,13 +257,11 @@ const clientProfiles: { name: string; headers: Record<string, string> }[] = [
   { name: "encoding brotli", headers: { "accept-encoding": "br, gzip, deflate" } },
 ];
 
-test("sitemap response stays identity application/xml for every client profile", async () => {
+test("sitemap response is application/xml for every client profile", async () => {
   const xml = renderSitemapXml(fallbackSitemapEntries());
   const direct = sitemapXmlResponse(xml);
   assert.equal(direct.status, 200);
   assert.equal(direct.headers.get("content-type"), "application/xml; charset=utf-8");
-  assert.equal(direct.headers.get("content-encoding"), "identity");
-  assert.match(direct.headers.get("cache-control") ?? "", /no-transform/);
   assert.equal(direct.headers.get("content-length"), String(Buffer.byteLength(xml, "utf8")));
   assert.equal(Buffer.from(await direct.arrayBuffer()).toString("utf8"), xml);
 
@@ -283,9 +281,6 @@ test("sitemap response stays identity application/xml for every client profile",
         "application/xml; charset=utf-8",
         `${profile.name} ${method}`,
       );
-      const cacheControl = response.headers.get("cache-control") ?? "";
-      assert.match(cacheControl, /no-transform/, `${profile.name} ${method}`);
-      assert.equal(response.headers.get("content-encoding"), "identity", `${profile.name} ${method}`);
       const body = Buffer.from(await response.arrayBuffer());
       assert.equal(
         response.headers.get("content-length"),
