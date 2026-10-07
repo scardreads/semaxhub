@@ -14,7 +14,7 @@ export const runtime = "nodejs";
  * returns, and `Date#toISOString()` on an Invalid Date throws there — a 500
  * the route's own try/catch cannot see. This handler writes the XML itself.
  */
-export async function GET() {
+export async function GET(_request?: Request) {
   try {
     return sitemapXmlResponse(renderSitemapXml(await loadSitemapEntries()));
   } catch (error) {

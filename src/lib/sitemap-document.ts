@@ -116,11 +116,22 @@ export async function loadSitemapEntries(): Promise<MetadataRoute.Sitemap> {
   }
 }
 
+/**
+ * Vercel compresses `application/xml` when the request advertises
+ * `Accept-Encoding`. Curl decodes that brotli/gzip body. Other clients
+ * (markdown fetchers, some libraries) advertise the same encodings and then
+ * fail the compressed XML, which shows up as HTTP 500, while HTML and
+ * `text/plain` from this host still succeed. `no-transform` tells the CDN
+ * to leave the bytes alone and keep `Content-Length`.
+ */
 export function sitemapXmlResponse(xml: string): Response {
-  return new Response(xml, {
+  const body = Buffer.from(xml, "utf8");
+  return new Response(body, {
+    status: 200,
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
-      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Cache-Control": "public, max-age=0, must-revalidate, no-transform",
+      "Content-Length": String(body.byteLength),
     },
   });
 }
